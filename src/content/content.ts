@@ -176,6 +176,24 @@ export const projects: Project[] = [
     accent: "#10b981",
   },
   {
+    slug: "otopark-terminali",
+    title: t("Otopark Terminali", "Car Park Terminal"),
+    // TODO: yil teyit edilecek
+    year: "2025",
+    summary: t(
+      "Otoparka giren aracın plakası kameradan okunuyor — çözümleme Google API'siyle otomatik yapılıyor. Çıkışta kalış süresi hesaplanıp faturaya dönüyor. Zebra ve Honeywell el terminallerinde çalışıyor.",
+      "A vehicle's plate is read by camera as it enters the car park, resolved automatically through a Google API. On exit the dwell time is computed and turned into a charge. Runs on Zebra and Honeywell handhelds.",
+    ),
+    impact: t(
+      "Plaka okumadan faturaya, elle giriş yok",
+      "Plate to invoice, with no manual entry",
+    ),
+    tags: ["Flutter", "Google API", "OCR", "Zebra", "Honeywell", "C#"],
+    links: {},
+    pattern: "bars",
+    accent: "#c2410c",
+  },
+  {
     slug: "menu-planlama",
     title: t("Menü Planlama / Sipariş", "Menu Planning / Ordering"),
     year: "2024",
@@ -211,8 +229,8 @@ export const projects: Project[] = [
     title: t("Persisto", "Persisto"),
     year: "2025 — 2026",
     summary: t(
-      "Alışkanlık ve seri takibi için yazdığım Flutter uygulaması. Kategoriler gün gün işaretleniyor, seriler kendiliğinden hesaplanıyor, haftalık jetonla bir gün dondurulabiliyor. Hatırlatmalar OneSignal üzerinden günde beş sabit saate planlanıyor — kategoriyi tamamladığın anda o günün kalan bildirimleri iptal oluyor. Mağaza için değil, tek bir kişi için yazıldı.",
-      "A Flutter app I wrote for habit and streak tracking. Categories get checked off day by day, streaks compute themselves, and a weekly token can freeze a day. Reminders are scheduled through OneSignal at five fixed times — and the moment you complete a category, the rest of that day's notifications cancel themselves. Written for one person, never meant for a store.",
+      "Alışkanlık ve seri takibi için yazdığım Flutter uygulaması. Her kategorinin, seri uzadıkça on kademe büyüyen bir ağacı var; seri kırıldığında oduncunun gelip ağacı kestiği bir animasyon oynuyor. Hatırlatmalar OneSignal üzerinden günde beş sabit saate planlanıyor — kategoriyi tamamladığın anda o günün kalan bildirimleri iptal oluyor. Mağaza için değil, tek bir kişi için yazıldı.",
+      "A Flutter app I wrote for habit and streak tracking. Every category grows a tree through ten levels as the streak builds — and when a streak breaks, an animation plays out a woodcutter walking in and felling it. Reminders are scheduled through OneSignal at five fixed times, and the moment you complete a category the rest of that day's notifications cancel themselves. Written for one person, never meant for a store.",
     ),
     impact: t(
       "Seri ve dondurma mantığı birim testlerle korunuyor",
@@ -317,10 +335,10 @@ export const experience: Experience[] = [
     role: t("Bilgisayar Mühendisliği, Yüksek Lisans", "M.Sc. Computer Engineering"),
     period: t("Şub 2023 — Haz 2026", "Feb 2023 — Jun 2026"),
     description: t(
-      "3,36 ortalamayla mezun oldum. Tezim, Scrum'ın devreye alım sonrası bakımla uyumsuzluğunu ele alıyor: sistematik literatür taraması, 10 sektör profesyoneliyle mülakat ve 15 kişilik uzman paneliyle AHP analizi sonucunda SAMIM modelini geliştirdim. Danışman: Dr. Öğr. Üyesi Kaan Kurtel.",
-      "Graduated with a 3.36 GPA. My thesis tackles the mismatch between Scrum and post-deployment maintenance: through a systematic literature review, interviews with 10 practitioners and an AHP study with a 15-expert panel, I developed the SAMIM model. Advisor: Asst. Prof. Dr. Kaan Kurtel.",
+      "3,36 ortalamayla mezun oldum. Tezim, Scrum'ın devreye alım sonrası bakımla uyumsuzluğunu ele alıyor. Sistematik literatür taraması, 10 sektör profesyoneliyle vaka odaklı mülakat ve 15 kişilik uzman paneliyle AHP analizi yürüttüm; grup tutarlılık oranı 0,0089 çıktı ve acil işler ile teknik borç, problem ağırlığının %45'ini oluşturdu. Geliştirdiğim SAMIM modeli Scrum'ı değiştirmiyor, dört müdahaleyle bu kısır döngüyü kırıyor: triyaj ve kurumsal hafızadan sorumlu dönüşümlü System Steward rolü, kapasite tamponları, takas politikası ve stabilizasyon penceresi. Danışman: Dr. Öğr. Üyesi Kaan Kurtel.",
+      "Graduated with a 3.36 GPA. My thesis tackles the mismatch between Scrum and post-deployment maintenance. I ran a systematic literature review, case-oriented interviews with 10 industry practitioners and an AHP study with a 15-expert panel; the group consistency ratio came out at 0.0089, and urgent work plus technical debt accounted for 45% of the problem weight. The SAMIM model I developed doesn't replace Scrum — it breaks that loop with four interventions: a rotating System Steward role owning triage and organisational memory, capacity buffers, a swap policy, and a stabilisation window. Advisor: Asst. Prof. Dr. Kaan Kurtel.",
     ),
-    tags: ["Scrum", "AHP", "Software Maintenance"],
+    tags: ["Scrum", "AHP", "System Steward", "Technical Debt", "Software Maintenance"],
   },
   {
     org: "İzmir Ekonomi Üniversitesi",

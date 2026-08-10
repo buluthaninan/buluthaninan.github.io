@@ -96,8 +96,10 @@ CV = {
                 "place": "İzmir",
                 "bullets": [
                     "Kurumun mobil katmanının tamamını Flutter ile geliştirip yayına aldım: 100+ çalışanın her gün "
-                    "kullandığı ERP mobil uygulaması, Zebra ve Honeywell el terminallerinde çalışan depo ve geçiş "
-                    "kayıt uygulamaları, 15+ şirketin kullandığı menü planlama ve sipariş platformu.",
+                    "kullandığı ERP mobil uygulaması ve 15+ şirketin kullandığı menü planlama / sipariş platformu.",
+                    "Zebra ve Honeywell el terminalleri için üç saha uygulaması yazdım: depo (stok, sayım, nakil), "
+                    "bölge geçiş kaydı ve otopark. Otoparkta plaka kameradan Google API ile otomatik okunuyor, "
+                    "kalış süresi hesaplanıp faturaya dönüyor; geçiş kayıtları da doğrudan faturalandırmayı besliyor.",
                     "Fiş fotoğrafını OpenAI ile okuyup kredi kartı ve avans harcamalarını ERP'ye işleyen modülü "
                     "sıfırdan tasarlayıp geliştirdim; muhasebe ve mali işler ekibinin elle veri girişini ortadan kaldırdı.",
                     "ERP modüllerini C# ve .NET Core ile geliştirdim, arayüzlerini React ile yazdım: sözleşmeler, "
@@ -124,9 +126,12 @@ CV = {
                 "place": "Ortalama 3,36 / 4,00",
                 "bullets": [
                     "Tez: <i>Adapting Scrum for Effective Software Maintenance: Understanding the Discrepancy and "
-                    "Bridging the Gap</i>. Sistematik literatür taraması, 10 sektör profesyoneliyle mülakat ve "
-                    "15 kişilik uzman paneliyle AHP analizi (grup tutarlılık oranı 0,0089). Bakım yükünü çevikliği "
-                    "bozmadan yöneten SAMIM modelini geliştirdim. Danışman: Dr. Öğr. Üyesi Kaan Kurtel.",
+                    "Bridging the Gap</i>. Sistematik literatür taraması, 10 sektör profesyoneliyle vaka odaklı "
+                    "mülakat ve 15 kişilik uzman paneliyle AHP analizi yürüttüm (grup tutarlılık oranı 0,0089); "
+                    "acil işler ve teknik borç, problem ağırlığının %45'ini oluşturdu.",
+                    "Geliştirdiğim SAMIM modeli Scrum'ı değiştirmiyor, dört müdahaleyle kısır döngüyü kırıyor: "
+                    "triyaj ve kurumsal hafızadan sorumlu <b>dönüşümlü System Steward rolü</b>, kapasite tamponları, "
+                    "takas politikası ve stabilizasyon penceresi. Danışman: Dr. Öğr. Üyesi Kaan Kurtel.",
                 ],
             },
             {
@@ -146,9 +151,10 @@ CV = {
         "projects": [
             (
                 "Persisto",
-                "Alışkanlık ve seri takibi için Flutter ile yazdığım mobil uygulama. Hatırlatmalar OneSignal "
-                "üzerinden planlanıyor ve kategori tamamlandığında o günün kalan bildirimleri kendiliğinden "
-                "iptal oluyor. Seri ve dondurma mantığı birim testlerle korunuyor.",
+                "Alışkanlık ve seri takibi için Flutter ile yazdığım mobil uygulama. Her kategorinin seri uzadıkça "
+                "on kademe büyüyen bir ağacı var; seri kırılınca oduncunun ağacı kestiği bir animasyon oynuyor. "
+                "Hatırlatmalar OneSignal üzerinden planlanıyor, kategori tamamlandığında o günün kalan bildirimleri "
+                "kendiliğinden iptal oluyor. Seri ve dondurma mantığı birim testlerle korunuyor.",
             ),
         ],
         "certs": [
@@ -180,8 +186,11 @@ CV = {
                 "place": "İzmir, Türkiye",
                 "bullets": [
                     "Built and shipped the organisation's entire mobile layer in Flutter: an ERP companion app used "
-                    "daily by 100+ employees, warehouse and transit logging apps running on Zebra and Honeywell "
-                    "handhelds, and a menu planning and ordering platform used by 15+ companies.",
+                    "daily by 100+ employees and a menu planning / ordering platform used by 15+ companies.",
+                    "Wrote three field applications for Zebra and Honeywell handheld terminals: warehouse (stock, "
+                    "counting, transfers), zone transit logging, and car park. In the car park app a plate is read "
+                    "by camera through a Google API, and dwell time is computed into a charge; transit records feed "
+                    "billing directly as well.",
                     "Designed and built from scratch a module that reads a photographed receipt with OpenAI and posts "
                     "credit-card and cash-advance expenses into the ERP, removing manual data entry for the accounting "
                     "and finance team.",
@@ -209,10 +218,12 @@ CV = {
                 "place": "GPA 3.36 / 4.00",
                 "bullets": [
                     "Thesis: <i>Adapting Scrum for Effective Software Maintenance: Understanding the Discrepancy and "
-                    "Bridging the Gap</i>. Systematic literature review, interviews with 10 industry practitioners and "
-                    "an AHP study with a 15-expert panel (group consistency ratio 0.0089). Produced SAMIM, a model for "
-                    "absorbing maintenance load without breaking Scrum's empirical principles. "
-                    "Advisor: Asst. Prof. Dr. Kaan Kurtel.",
+                    "Bridging the Gap</i>. Systematic literature review, case-oriented interviews with 10 industry "
+                    "practitioners and an AHP study with a 15-expert panel (group consistency ratio 0.0089); urgent "
+                    "work and technical debt accounted for 45% of the problem weight.",
+                    "The resulting SAMIM model does not replace Scrum — it breaks that loop with four interventions: "
+                    "a <b>rotating System Steward role</b> owning triage and organisational memory, capacity buffers, "
+                    "a swap policy, and a stabilisation window. Advisor: Asst. Prof. Dr. Kaan Kurtel.",
                 ],
             },
             {
@@ -232,9 +243,10 @@ CV = {
         "projects": [
             (
                 "Persisto",
-                "A habit and streak tracking app I wrote in Flutter. Reminders are scheduled through OneSignal and "
-                "the rest of the day's notifications cancel themselves once a category is completed. Streak and "
-                "freeze logic is covered by unit tests.",
+                "A habit and streak tracking app I wrote in Flutter. Every category grows a tree through ten levels "
+                "as the streak builds, and a woodcutter animation fells it when the streak breaks. Reminders are "
+                "scheduled through OneSignal and the rest of the day's notifications cancel themselves once a "
+                "category is completed. Streak and freeze logic is covered by unit tests.",
             ),
         ],
         "certs": [
@@ -250,51 +262,51 @@ CV = {
 
 S = {
     "name": ParagraphStyle(
-        "name", fontName="UI-Bold", fontSize=21, leading=25, textColor=INK, spaceAfter=1
+        "name", fontName="UI-Bold", fontSize=19.5, leading=23, textColor=INK, spaceAfter=1
     ),
     "role": ParagraphStyle(
-        "role", fontName="UI-Semi", fontSize=10.5, leading=14, textColor=ACCENT, spaceAfter=4
+        "role", fontName="UI-Semi", fontSize=10, leading=13, textColor=ACCENT, spaceAfter=3
     ),
     "contact": ParagraphStyle(
-        "contact", fontName="UI", fontSize=8.7, leading=12.8, textColor=MUTED
+        "contact", fontName="UI", fontSize=8.3, leading=12, textColor=MUTED
     ),
     "summary": ParagraphStyle(
         "summary",
         fontName="UI",
-        fontSize=9.4,
-        leading=13.9,
+        fontSize=8.8,
+        leading=12.6,
         textColor=INK,
         alignment=TA_JUSTIFY,
         spaceBefore=7,
     ),
     "h2": ParagraphStyle(
-        "h2", fontName="UI-Bold", fontSize=9.4, leading=11.5, textColor=ACCENT, spaceBefore=13, spaceAfter=3
+        "h2", fontName="UI-Bold", fontSize=8.8, leading=10.5, textColor=ACCENT, spaceBefore=8.5, spaceAfter=2
     ),
     "entryTitle": ParagraphStyle(
-        "entryTitle", fontName="UI-Semi", fontSize=10.2, leading=13.2, textColor=INK
+        "entryTitle", fontName="UI-Semi", fontSize=9.5, leading=12.2, textColor=INK
     ),
     "entryMeta": ParagraphStyle(
-        "entryMeta", fontName="UI", fontSize=8.6, leading=11.8, textColor=MUTED, spaceAfter=2.5
+        "entryMeta", fontName="UI", fontSize=8, leading=10.8, textColor=MUTED, spaceAfter=1.5
     ),
     "bullet": ParagraphStyle(
         "bullet",
         fontName="UI",
-        fontSize=9.2,
-        leading=13.1,
+        fontSize=8.5,
+        leading=11.7,
         textColor=INK,
         leftIndent=8,
         bulletIndent=0,
-        spaceAfter=1.6,
+        spaceAfter=1.2,
         alignment=TA_JUSTIFY,
     ),
     "skill": ParagraphStyle(
-        "skill", fontName="UI", fontSize=9.2, leading=13.4, textColor=INK, leftIndent=80, firstLineIndent=-80
+        "skill", fontName="UI", fontSize=8.5, leading=11.9, textColor=INK, leftIndent=76, firstLineIndent=-76
     ),
 }
 
 
 def rule():
-    return HRFlowable(width="100%", thickness=0.6, color=RULE, spaceBefore=2, spaceAfter=5)
+    return HRFlowable(width="100%", thickness=0.6, color=RULE, spaceBefore=1.5, spaceAfter=3.5)
 
 
 def upper(text, lang):
@@ -320,7 +332,7 @@ def entry(item):
     ]
     for b in item["bullets"]:
         parts.append(Paragraph(b, S["bullet"], bulletText="—"))
-    parts.append(Spacer(1, 5.5))
+    parts.append(Spacer(1, 3.5))
     return KeepTogether(parts)
 
 
@@ -335,10 +347,10 @@ def build(lang):
     doc = BaseDocTemplate(
         out,
         pagesize=A4,
-        leftMargin=17 * mm,
-        rightMargin=17 * mm,
-        topMargin=14 * mm,
-        bottomMargin=12 * mm,
+        leftMargin=15 * mm,
+        rightMargin=15 * mm,
+        topMargin=11 * mm,
+        bottomMargin=9 * mm,
         title=f'{CONTACT["name"]} — CV',
         author=CONTACT["name"],
         subject="Curriculum Vitae",

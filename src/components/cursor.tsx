@@ -3,28 +3,29 @@
 import { useEffect, useRef } from "react";
 
 /**
- * İki parçalı özel imleç: nokta + çevresindeki halka.
+ * Siteye özel imleç: nokta + çevresindeki halka, ikisi de temanın rengini alır.
  *
- * Halka eskiden imleci gecikmeli takip ediyordu; hareket ederken imleçten
- * kopuk, boşlukta kayan bir daire gibi görünüyordu. Artık ikisi de aynı
- * karede, birebir aynı noktaya yazılıyor — kayma yok.
- *
- * Tıklanabilir öğelerin üzerinde halka büyür. Dokunmatik cihazlarda gizli.
+ * İki önemli ayrıntı:
+ *  1. Sistem imleci ancak bu bileşen gerçekten çalışırsa gizlenir — `data-cursor`
+ *     özniteliğini JS koyar. Betik yüklenmezse kullanıcı imleçsiz kalmaz.
+ *  2. Nokta ve halka aynı olayda, aynı değere yazılır. Daha önce halka imleci
+ *     gecikmeli takip ediyordu ve kayıyormuş gibi görünüyordu.
  */
 export function Cursor() {
   const dot = useRef<HTMLDivElement>(null);
   const ring = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Dokunmatik cihazda özel imleç yok; sistem imleci de gizlenmez.
     if (window.matchMedia("(hover: none), (pointer: coarse)").matches) return;
+
+    const root = document.documentElement;
+    root.dataset.cursor = "on";
 
     let hot = false;
     let lastTarget: EventTarget | null = null;
 
     const onMove = (e: MouseEvent) => {
-      // mousemove tarayıcı tarafından zaten kare başına birleştiriliyor, araya
-      // requestAnimationFrame koymaya gerek yok. Doğrudan yazmak hem daha az
-      // parça hem de nokta ile halkanın ayrışması imkânsız.
       const t = `translate(${e.clientX}px, ${e.clientY}px)`;
       if (dot.current) dot.current.style.transform = t;
       if (ring.current) ring.current.style.transform = t;
@@ -39,7 +40,7 @@ export function Cursor() {
           | undefined;
 
         // Deneyim satırları gibi tam genişlikte bloklar da <button>. Halkanın
-        // onların üzerinde de büyümesi, metnin ortasında kocaman bir daire
+        // onların üzerinde de büyümesi metnin ortasında kocaman bir daire
         // bırakıyordu — büyütmeyi yalnızca elle tutulur hedeflere uygula.
         let next = false;
         if (target) {
@@ -66,6 +67,7 @@ export function Cursor() {
     document.addEventListener("mouseenter", onEnter);
 
     return () => {
+      delete root.dataset.cursor;
       window.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseleave", onLeave);
       document.removeEventListener("mouseenter", onEnter);
