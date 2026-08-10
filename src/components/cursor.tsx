@@ -3,7 +3,12 @@
 import { useEffect, useRef } from "react";
 
 /**
- * İki parçalı özel imleç: anında takip eden nokta + gecikmeli halka.
+ * İki parçalı özel imleç: nokta + çevresindeki halka.
+ *
+ * Halka eskiden imleci gecikmeli takip ediyordu; hareket ederken imleçten
+ * kopuk, boşlukta kayan bir daire gibi görünüyordu. Artık ikisi de aynı
+ * karede, birebir aynı noktaya yazılıyor — kayma yok.
+ *
  * Tıklanabilir öğelerin üzerinde halka büyür. Dokunmatik cihazlarda gizli.
  */
 export function Cursor() {
@@ -13,19 +18,16 @@ export function Cursor() {
   useEffect(() => {
     if (window.matchMedia("(hover: none), (pointer: coarse)").matches) return;
 
-    let mx = window.innerWidth / 2;
-    let my = window.innerHeight / 2;
-    let rx = mx;
-    let ry = my;
-    let raf = 0;
-
     let hot = false;
     let lastTarget: EventTarget | null = null;
 
     const onMove = (e: MouseEvent) => {
-      mx = e.clientX;
-      my = e.clientY;
-      if (dot.current) dot.current.style.transform = `translate(${mx}px, ${my}px)`;
+      // mousemove tarayıcı tarafından zaten kare başına birleştiriliyor, araya
+      // requestAnimationFrame koymaya gerek yok. Doğrudan yazmak hem daha az
+      // parça hem de nokta ile halkanın ayrışması imkânsız.
+      const t = `translate(${e.clientX}px, ${e.clientY}px)`;
+      if (dot.current) dot.current.style.transform = t;
+      if (ring.current) ring.current.style.transform = t;
 
       // closest() ve DOM yazımı yalnızca hedef değiştiğinde
       if (e.target !== lastTarget) {
@@ -38,7 +40,7 @@ export function Cursor() {
 
         // Deneyim satırları gibi tam genişlikte bloklar da <button>. Halkanın
         // onların üzerinde de büyümesi, metnin ortasında kocaman bir daire
-        // bırakıyordu — büyütmeyi yalnızca elle tutulur boyuttaki hedeflere uygula.
+        // bırakıyordu — büyütmeyi yalnızca elle tutulur hedeflere uygula.
         let next = false;
         if (target) {
           const r = target.getBoundingClientRect();
@@ -52,39 +54,21 @@ export function Cursor() {
       }
     };
 
-    const loop = () => {
-      const dx = mx - rx;
-      const dy = my - ry;
-      // Halka yerine oturduysa boşuna yazma.
-      // Takip katsayısı bilerek yüksek: düşük değerde halka imleçten kopuk
-      // görünüyor ve boşlukta salınan bir daire izlenimi veriyordu.
-      if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
-        rx += dx * 0.34;
-        ry += dy * 0.34;
-        if (ring.current) ring.current.style.transform = `translate(${rx}px, ${ry}px)`;
-      }
-      raf = requestAnimationFrame(loop);
+    const setVisible = (v: string) => () => {
+      if (dot.current) dot.current.style.opacity = v;
+      if (ring.current) ring.current.style.opacity = v;
     };
-
-    const onLeave = () => {
-      if (dot.current) dot.current.style.opacity = "0";
-      if (ring.current) ring.current.style.opacity = "0";
-    };
-    const onEnter = () => {
-      if (dot.current) dot.current.style.opacity = "1";
-      if (ring.current) ring.current.style.opacity = "1";
-    };
+    const onLeave = setVisible("0");
+    const onEnter = setVisible("1");
 
     window.addEventListener("mousemove", onMove, { passive: true });
     document.addEventListener("mouseleave", onLeave);
     document.addEventListener("mouseenter", onEnter);
-    raf = requestAnimationFrame(loop);
 
     return () => {
       window.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseleave", onLeave);
       document.removeEventListener("mouseenter", onEnter);
-      cancelAnimationFrame(raf);
     };
   }, []);
 

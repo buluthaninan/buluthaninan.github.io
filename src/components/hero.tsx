@@ -99,11 +99,17 @@ function EditorialHero() {
         <StatusPill />
       </div>
 
-      <h1 className="display text-[clamp(3.2rem,13.5vw,12.5rem)]">
+      {/*
+        .display'in 0.88 satır aralığı iki satırlı isimde çok sıkı kalıyor:
+        'İ' harfinin noktası bir üstteki 'B'nin altına giriyor. Satır aralığı
+        yalnızca burada açılıyor — inline stil, .display'i geçmek için gerekli.
+      */}
+      <h1 className="display text-[clamp(3.2rem,13.5vw,12.5rem)]" style={{ lineHeight: 1.06 }}>
         {words.map((w, i) => (
-          // pt/-mt cifti: overflow-hidden kirpma kutusunu yukari genisletir ama
-          // yerlesimi kaydirmaz. Olmazsa 'İ' harfinin noktasi kesiliyor.
-          <span key={i} className="block overflow-hidden pt-[0.24em] -mt-[0.24em]">
+          // overflow-hidden dort tarafi birden kirpiyor ve 'İ' harfinin noktasini
+          // kesiyordu. Animasyon metni asagidan yukari kaydirdigi icin yalnizca
+          // ALT tarafin kirpilmasi yeterli — clip-path'in ust kenari aciik birakiliyor.
+          <span key={i} className="block [clip-path:inset(-100%_0_0_0)]">
             <span
               className="block animate-[rise_1.1s_var(--ease-out-expo)_both]"
               style={{ animationDelay: `${120 + i * 110}ms` }}

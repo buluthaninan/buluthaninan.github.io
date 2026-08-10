@@ -78,7 +78,8 @@ CV = {
             "Kurumsal ERP sistemleri üzerine çalışan full stack geliştirici. Web tarafında C#, .NET Core ve "
             "React, mobilde Flutter. ESBAŞ'ta küçük bir ekipte işin tamamını üstleniyorum: ihtiyacı kullanan "
             "şirketle konuşup analiz etmek, geliştirmek, test etmek ve devreye almak. Kurumun mobil "
-            "katmanının tamamı bana ait. Yazılım bakımında Scrum uyarlaması üzerine yüksek lisans tezi."
+            "katmanının tamamı bana ait. Yüksek lisans tezimde yazılım bakımının Scrum'a "
+            "uyarlanması için bir model geliştirdim."
         ),
         "sections": {
             "exp": "Deneyim",
@@ -161,7 +162,8 @@ CV = {
             "Full stack developer working on enterprise ERP systems. C#, .NET Core and React on the web, "
             "Flutter on mobile. In a small team at ESBAŞ I own the whole cycle: talking to the company that "
             "has the need, analysis, development, testing and release. The entire mobile layer of the "
-            "organisation is mine. M.Sc. thesis on adapting Scrum for software maintenance."
+            "organisation is mine. For my M.Sc. thesis I developed a model for adapting Scrum "
+            "to software maintenance."
         ),
         "sections": {
             "exp": "Experience",
