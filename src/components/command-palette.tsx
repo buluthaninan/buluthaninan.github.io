@@ -4,7 +4,18 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useSite } from "./providers";
 import { ModKey } from "./bits";
 import { contact, projects, ui } from "@/content/content";
-import { SECTIONS, THEMES, cx, type Theme } from "@/lib/site";
+import { SECTIONS, SECRET_THEME, THEMES, cx, type Theme } from "@/lib/site";
+import { isSecretWord, markUnlocked, unlockSecret } from "@/lib/secret";
+
+/**
+ * Aynı arama için hep aynı cevabı seçelim diye küçük bir karma — her tuşta
+ * cevap değişirse takılgan değil, arızalı görünür.
+ */
+function hashCode(s: string) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h << 5) - h + s.charCodeAt(i);
+  return h;
+}
 
 type Item = {
   id: string;
@@ -18,6 +29,9 @@ export function CommandPalette() {
   const { paletteOpen, setPaletteOpen, tr, setTheme, setLang, lang } = useSite();
   const [q, setQ] = useState("");
   const [i, setI] = useState(0);
+  // Gizli kelime kontrolu asenkron (hash hesabi) — sonucu burada tutuyoruz
+  const [secretHit, setSecretHit] = useState(false);
+  const [reveal, setReveal] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -103,19 +117,69 @@ export function CommandPalette() {
     return [...nav, ...proj, ...themes, ...langs, ...links];
   }, [tr, lang, setTheme, setLang, setPaletteOpen]);
 
+
+  /**
+   * Gizli ögeler. Arama filtresinden bilerek muaflar: etiketleri aranan
+   * kelimeyi içermediği için normal filtreye takılıp eleniyorlardı.
+   */
+  const eggs = useMemo<Item[]>(() => {
+    const list: Item[] = [];
+
+    if (secretHit) {
+      list.push({
+        id: "secret",
+        group: "???",
+        label: tr(ui.palette.secretFound),
+        hint: tr(ui.palette.secretHint),
+        run: () => {
+          unlockSecret(q).then((message) => {
+            if (!message) return;
+            markUnlocked();
+            setReveal(message);
+          });
+        },
+      });
+    }
+
+    if (q.trim() === "42") {
+      list.push({
+        id: "answer",
+        group: "???",
+        label: tr(ui.palette.answer),
+        hint: "Douglas Adams",
+        run: () => setPaletteOpen(false),
+      });
+    }
+
+    return list;
+  }, [secretHit, q, tr, setPaletteOpen]);
+
   const filtered = useMemo(() => {
     const needle = q.trim().toLocaleLowerCase("tr");
-    if (!needle) return items;
-    return items.filter((it) =>
-      `${it.label} ${it.hint ?? ""} ${it.group}`.toLocaleLowerCase("tr").includes(needle),
-    );
-  }, [items, q]);
+    if (!needle) return [...eggs, ...items];
+    return [
+      ...eggs,
+      ...items.filter((it) =>
+        `${it.label} ${it.hint ?? ""} ${it.group}`.toLocaleLowerCase("tr").includes(needle),
+      ),
+    ];
+  }, [items, eggs, q]);
 
   useEffect(() => setI(0), [q, paletteOpen]);
+
+  // Yazilan sey gizli kelime mi? Sadece ozet karsilastirilir, metin cozulmez.
+  useEffect(() => {
+    let alive = true;
+    isSecretWord(q).then((hit) => alive && setSecretHit(hit));
+    return () => {
+      alive = false;
+    };
+  }, [q]);
 
   useEffect(() => {
     if (paletteOpen) {
       setQ("");
+      setReveal(null);
       // odaklanma bir kare sonra, geçiş animasyonu bozulmasın
       requestAnimationFrame(() => inputRef.current?.focus());
       document.body.style.overflow = "hidden";
@@ -134,6 +198,13 @@ export function CommandPalette() {
   }, [i]);
 
   if (!paletteOpen) return null;
+
+  // Boş sonuçta ara sıra takılgan bir cevap; çoğunlukla düz "Sonuç yok."
+  const quips = ui.palette.emptyQuips;
+  const emptyLine =
+    q.trim().length > 2
+      ? tr(quips[Math.abs(hashCode(q)) % quips.length])
+      : tr(ui.palette.empty);
 
   // Grup başlıklarını sırayla ekleyebilmek için
   let lastGroup = "";
@@ -183,10 +254,23 @@ export function CommandPalette() {
           </kbd>
         </div>
 
+        {/* Ödül ekranı — gizli kelime bulununca listenin yerini alır */}
+        {reveal && (
+          <div className="flex-1 overflow-y-auto px-5 py-5">
+            <p className="eyebrow mb-3 text-accent">{tr(ui.palette.secretFound)}</p>
+            <pre className="whitespace-pre-wrap font-mono text-[13px] leading-relaxed text-fg">
+              {reveal}
+            </pre>
+            <p className="mono-xs mt-5 border-t border-line pt-3 text-faint">
+              {tr(ui.themes[SECRET_THEME])} — {tr(ui.palette.theme).toLocaleLowerCase("tr")}
+            </p>
+          </div>
+        )}
+
         {/* Sonuçlar */}
-        <div ref={listRef} className="flex-1 overflow-y-auto py-2">
+        <div ref={listRef} className={cx("flex-1 overflow-y-auto py-2", reveal && "hidden")}>
           {filtered.length === 0 && (
-            <p className="px-4 py-8 text-center text-sm text-faint">{tr(ui.palette.empty)}</p>
+            <p className="px-4 py-8 text-center text-sm text-faint">{emptyLine}</p>
           )}
 
           {filtered.map((it, idx) => {

@@ -4,13 +4,19 @@ import { useEffect, useState } from "react";
 import { useSite } from "./providers";
 import { ModKey } from "./bits";
 import { profile, ui } from "@/content/content";
-import { SECTIONS, THEMES, cx, type Theme } from "@/lib/site";
+import { ALL_THEMES, SECTIONS, SECRET_THEME, cx, type Theme } from "@/lib/site";
 
 const THEME_ICON: Record<Theme, React.ReactNode> = {
   editorial: (
     <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.4">
       <path d="M3 2.5h7l3 3v8H3z" />
       <path d="M5.5 6.5h5M5.5 9h5M5.5 11.5h3" strokeLinecap="round" />
+    </svg>
+  ),
+  tech: (
+    <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.4">
+      <path d="M8 1.5 14 5v6l-6 3.5L2 11V5z" strokeLinejoin="round" />
+      <circle cx="8" cy="8" r="2.2" />
     </svg>
   ),
   terminal: (
@@ -129,10 +135,11 @@ export function Nav() {
 
             {/* Tema seçici */}
             <div className="flex items-center gap-0.5 rounded-[var(--r-pill)] border border-line bg-surface p-0.5">
-              {THEMES.map((t) => (
+              {ALL_THEMES.map((t) => (
                 <button
                   key={t}
                   data-tkey={t}
+                  data-locked={t === SECRET_THEME || undefined}
                   onClick={(e) =>
                     setTheme(t, {
                       x: e.clientX,

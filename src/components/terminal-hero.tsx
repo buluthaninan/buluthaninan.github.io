@@ -2,8 +2,18 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useSite } from "./providers";
-import { about, contact, profile, projects, skills, terminalHelp } from "@/content/content";
-import { THEMES, modKeyLabel, type Theme } from "@/lib/site";
+import {
+  about,
+  contact,
+  fortunes,
+  profile,
+  projects,
+  skills,
+  terminalHelp,
+  terminalSecrets,
+} from "@/content/content";
+import { ALL_THEMES, SECRET_THEME, THEMES, modKeyLabel, type Theme } from "@/lib/site";
+import { isUnlocked, markUnlocked, unlockSecret } from "@/lib/secret";
 
 type Line = { kind: "in" | "out" | "sys" | "ok" | "err"; text: string };
 
@@ -16,6 +26,8 @@ export function TerminalHero() {
   const [hIndex, setHIndex] = useState(-1);
   const [booted, setBooted] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  // Canlanan komutlarin (matrix, sudo rm) zamanlayicilari — bilesen kalkarken durdurulur
+  const timers = useRef<ReturnType<typeof setInterval>[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const banner: Line[] =
@@ -60,12 +72,157 @@ export function TerminalHero() {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [lines]);
 
+  useEffect(() => {
+    const list = timers.current;
+    return () => list.forEach(clearInterval);
+  }, []);
+
   const push = (...l: Line[]) => setLines((prev) => [...prev, ...l]);
 
   const notFound = (cmd: string) =>
     lang === "tr"
       ? `komut bulunamadı: ${cmd} — 'help' dene`
       : `command not found: ${cmd} — try 'help'`;
+
+  /* ---------------------------------------------------------------------- */
+  /*  GIZLI KOMUTLARIN YARDIMCILARI                                          */
+  /* ---------------------------------------------------------------------- */
+
+  /** ESBAŞ'ta geçen süre — sabit yazmak yerine tarihten hesaplanıyor. */
+  function uptimeLine() {
+    const start = new Date(2022, 9, 1); // Ekim 2022
+    const now = new Date();
+    let months = (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
+    const years = Math.floor(months / 12);
+    months %= 12;
+    return lang === "tr"
+      ? `ESBAŞ'ta ${years} yıl ${months} ay — hâlâ ayakta, hâlâ bakımda`
+      : `up ${years} years ${months} months at ESBAŞ — still running, still maintained`;
+  }
+
+  function neofetch(): Line[] {
+    const info: [string, string][] = [
+      [lang === "tr" ? "kullanıcı" : "user", `${profile.handle}@portfolio`],
+      [lang === "tr" ? "rol" : "role", tr(profile.role)],
+      [lang === "tr" ? "konum" : "location", tr(profile.location)],
+      [lang === "tr" ? "çalışma süresi" : "uptime", uptimeLine().replace(/ —.*/, "")],
+      [lang === "tr" ? "diller" : "languages", "C# · Dart · JS · Java · SQL"],
+      [lang === "tr" ? "kabuk" : "shell", "portfolio-sh 1.0"],
+      [lang === "tr" ? "tema" : "theme", document.documentElement.dataset.theme ?? "—"],
+      [lang === "tr" ? "projeler" : "projects", String(projects.length)],
+    ];
+    const logo = [
+      "   ____  ",
+      "  | __ ) ",
+      "  |  _ \\ ",
+      "  | |_) |",
+      "  |____/ ",
+      "         ",
+      "         ",
+      "         ",
+    ];
+    return info.map((row, i) => ({
+      kind: i === 0 ? "ok" : "out",
+      text: `${logo[i] ?? "         "}  ${row[0].padEnd(15)}${row[1]}`,
+    }));
+  }
+
+  /** Ekranı birkaç saniye dijital yağmura çevirir. */
+  function runMatrix() {
+    const GLYPHS = "アイウエオカキクケコサシスセソ0123456789ABCDEF";
+    const W = 44;
+    const H = 11;
+    let frame = 0;
+    const id = setInterval(() => {
+      frame += 1;
+      setLines(
+        Array.from({ length: H }, () => ({
+          kind: "ok" as const,
+          text: Array.from({ length: W }, () =>
+            Math.random() < 0.28 ? " " : GLYPHS[Math.floor(Math.random() * GLYPHS.length)],
+          ).join(""),
+        })),
+      );
+      if (frame >= 28) {
+        clearInterval(id);
+        setLines([
+          { kind: "sys", text: "^C" },
+          {
+            kind: "out",
+            text: lang === "tr" ? "…tavşan deliği burada bitiyor." : "…the rabbit hole ends here.",
+          },
+        ]);
+      }
+    }, 85);
+    timers.current.push(id);
+  }
+
+  /** `sudo rm -rf /` — sahte silme çubuğu, sonra gerçek. */
+  function fakeDelete() {
+    const steps =
+      lang === "tr"
+        ? ["/ siliniyor", "/usr siliniyor", "/home siliniyor", "/var siliniyor", "önyükleyici siliniyor"]
+        : ["removing /", "removing /usr", "removing /home", "removing /var", "removing bootloader"];
+    let i = 0;
+    const id = setInterval(() => {
+      if (i < steps.length) {
+        const filled = "█".repeat(i * 4 + 4).padEnd(20, "░");
+        push({ kind: "err", text: `${filled}  ${steps[i]}…` });
+        i += 1;
+        return;
+      }
+      clearInterval(id);
+      push(
+        { kind: "sys", text: "" },
+        {
+          kind: "ok",
+          text:
+            lang === "tr"
+              ? "Şaka şaka. Burası statik bir site, silecek bir şey yok."
+              : "Only joking. This is a static site; there is nothing to delete.",
+        },
+        {
+          kind: "sys",
+          text:
+            lang === "tr"
+              ? "(gerçek sistemlerde bunu yazma. cidden.)"
+              : "(don't type that on a real system. seriously.)",
+        },
+      );
+    }, 340);
+    timers.current.push(id);
+  }
+
+  /** Gizli kelimeyi dener; doğruysa şifreli mesajı çözer ve temayı açar. */
+  function doUnlock(word: string) {
+    if (!word) {
+      push({ kind: "err", text: "unlock <" + (lang === "tr" ? "kelime" : "word") + ">" });
+      return;
+    }
+    push({ kind: "sys", text: lang === "tr" ? "çözülüyor…" : "decrypting…" });
+    unlockSecret(word).then((message) => {
+      if (!message) {
+        push({
+          kind: "err",
+          text: lang === "tr" ? "çözülemedi. yanlış kelime." : "could not decrypt. wrong word.",
+        });
+        return;
+      }
+      markUnlocked();
+      push(
+        { kind: "sys", text: "" },
+        ...message.split(/\r?\n/).map<Line>((l) => ({ kind: l ? "ok" : "sys", text: l })),
+        { kind: "sys", text: "" },
+        {
+          kind: "sys",
+          text:
+            lang === "tr"
+              ? `kilit açıldı — 'theme ${SECRET_THEME}' artık çalışıyor`
+              : `unlocked — 'theme ${SECRET_THEME}' now works`,
+        },
+      );
+    });
+  }
 
   function run(raw: string) {
     const cmd = raw.trim();
@@ -78,14 +235,32 @@ export function TerminalHero() {
     const arg = rest.join(" ");
 
     switch (head) {
-      case "help":
-        push(
-          ...terminalHelp.map<Line>((h) => ({
-            kind: "out",
-            text: `${h.cmd.padEnd(14)} ${tr(h.desc)}`,
-          })),
-        );
+      case "help": {
+        const row = (h: { cmd: string; desc: { tr: string; en: string } }): Line => ({
+          kind: "out",
+          text: `${h.cmd.padEnd(16)} ${tr(h.desc)}`,
+        });
+        push(...terminalHelp.map(row));
+        if (arg === "--all" || arg === "-a") {
+          push(
+            { kind: "sys", text: "" },
+            {
+              kind: "sys",
+              text: lang === "tr" ? "— listede olmayanlar —" : "— not on the list —",
+            },
+            ...terminalSecrets.map(row),
+          );
+        } else {
+          push({
+            kind: "sys",
+            text:
+              lang === "tr"
+                ? "hepsi bu kadar değil. 'help --all' dene."
+                : "that isn't all of them. try 'help --all'.",
+          });
+        }
         break;
+      }
 
       case "whoami":
         push(
@@ -151,14 +326,16 @@ export function TerminalHero() {
         );
         break;
 
-      case "theme":
-        if ((THEMES as readonly string[]).includes(arg)) {
+      case "theme": {
+        const allowed = isUnlocked() ? ALL_THEMES : THEMES;
+        if ((allowed as readonly string[]).includes(arg)) {
           push({ kind: "ok", text: `→ ${arg}` });
           setTimeout(() => setTheme(arg as Theme), 260);
         } else {
-          push({ kind: "err", text: `theme: ${THEMES.join(" | ")}` });
+          push({ kind: "err", text: `theme: ${allowed.join(" | ")}` });
         }
         break;
+      }
 
       case "lang":
         if (arg === "tr" || arg === "en") {
@@ -174,6 +351,10 @@ export function TerminalHero() {
         break;
 
       case "sudo":
+        if (/^rm\s+-rf/.test(arg)) {
+          fakeDelete();
+          break;
+        }
         push({
           kind: "ok",
           text:
@@ -188,6 +369,80 @@ export function TerminalHero() {
           kind: "sys",
           text: lang === "tr" ? "buradan çıkış yok :)" : "there is no exit from here :)",
         });
+        break;
+
+      /* ------------------------------------------------------------------ */
+      /*  GIZLI KOMUTLAR — `help` ciktisinda gorunmezler                      */
+      /* ------------------------------------------------------------------ */
+
+      case "neofetch":
+        push(...neofetch());
+        break;
+
+      case "uptime":
+        push({ kind: "out", text: uptimeLine() });
+        break;
+
+      case "tree":
+        push(
+          { kind: "out", text: "." },
+          { kind: "out", text: "├── projeler/        9" },
+          { kind: "out", text: "│   ├── esbas/       6" },
+          { kind: "out", text: "│   ├── kisisel/     1" },
+          { kind: "out", text: "│   └── arastirma/   1" },
+          { kind: "out", text: "├── hakkimda" },
+          { kind: "out", text: "├── deneyim/         4" },
+          { kind: "out", text: "├── iletisim" },
+          { kind: "out", text: "└── .gizli/          ?" },
+          { kind: "sys", text: lang === "tr" ? "1 klasör okunamadı" : "1 directory unreadable" },
+        );
+        break;
+
+      case "fortune":
+        push({ kind: "out", text: tr(fortunes[Math.floor(Math.random() * fortunes.length)]) });
+        break;
+
+      case "coffee":
+        push(
+          { kind: "out", text: "      )  (" },
+          { kind: "out", text: "     (   ) )" },
+          { kind: "out", text: "      ) ( (" },
+          { kind: "out", text: "    _______)_" },
+          { kind: "out", text: " .-'---------|" },
+          { kind: "out", text: "( C|/\/\/\/|" },
+          { kind: "out", text: " '-./\/\/\/|" },
+          { kind: "out", text: "   '_________'" },
+          { kind: "out", text: "    '-------'" },
+          {
+            kind: "sys",
+            text: lang === "tr" ? "bu sitenin yakıtı" : "the fuel this site runs on",
+          },
+        );
+        break;
+
+      case "matrix":
+        runMatrix();
+        break;
+
+      case "vim":
+        push(
+          { kind: "err", text: lang === "tr" ? "vim açıldı." : "vim opened." },
+          {
+            kind: "sys",
+            text:
+              lang === "tr"
+                ? ":q ile çıkamazsın. :q! de olmaz. Sekmeyi kapat, tek yolu bu."
+                : ":q won't save you. Neither will :q!. Close the tab, it's the only way.",
+          },
+        );
+        break;
+
+      case "xyzzy":
+        push({ kind: "sys", text: lang === "tr" ? "Hiçbir şey olmadı." : "Nothing happens." });
+        break;
+
+      case "unlock":
+        doUnlock(arg);
         break;
 
       default:

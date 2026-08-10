@@ -1,5 +1,13 @@
+/** Herkese acik temalar — gezinme cubugunda hep gorunurler. */
 export const THEMES = ["editorial", "terminal"] as const;
-export type Theme = (typeof THEMES)[number];
+
+/** Yalnizca gizli kelimeyi bulan kisiye acilan tema. */
+export const SECRET_THEME = "tech" as const;
+
+/** Dogrulama icin tam liste. */
+export const ALL_THEMES = [...THEMES, SECRET_THEME] as const;
+
+export type Theme = (typeof ALL_THEMES)[number];
 
 export const LANGS = ["tr", "en"] as const;
 export type Lang = (typeof LANGS)[number];
@@ -10,6 +18,7 @@ export const DEFAULT_LANG: Lang = "tr";
 export const STORAGE = {
   theme: "portf:theme",
   lang: "portf:lang",
+  unlocked: "portf:unlocked",
 } as const;
 
 export const SECTIONS = ["work", "about", "experience", "contact"] as const;
@@ -28,8 +37,11 @@ export const bootScript = `
   try {
     var t = localStorage.getItem("${STORAGE.theme}");
     var l = localStorage.getItem("${STORAGE.lang}");
-    var themes = ${JSON.stringify(THEMES)};
+    var unlocked = localStorage.getItem("${STORAGE.unlocked}") === "1";
+    // Gizli tema yalnizca kilidi acilmissa gecerli sayilir
+    var themes = unlocked ? ${JSON.stringify(ALL_THEMES)} : ${JSON.stringify(THEMES)};
     var langs = ${JSON.stringify(LANGS)};
+    if (unlocked) d.dataset.unlocked = "1";
     d.dataset.theme = themes.indexOf(t) > -1 ? t : "${DEFAULT_THEME}";
     d.lang = langs.indexOf(l) > -1 ? l : "${DEFAULT_LANG}";
   } catch (e) {

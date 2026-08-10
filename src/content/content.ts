@@ -437,10 +437,22 @@ export const ui = {
     links: t("Bağlantılar", "Links"),
     empty: t("Sonuç yok.", "No results."),
     open: t("Komut paletini aç", "Open command palette"),
+    /** Bos sonuc ekraninda ara sira cikan takilgan cevaplar */
+    emptyQuips: [
+      t("Sonuç yok. Ama aramaya devam.", "No results. Keep looking, though."),
+      t("Burada bir şey yok. Emin misin?", "Nothing here. Are you sure?"),
+      t("Sıfır eşleşme. Yazım hatası olmasın?", "Zero matches. Typo, maybe?"),
+      t("Bulamadım. Terminal temasını denedin mi?", "Nothing found. Have you tried the terminal theme?"),
+      t("Aradığın şey belki de gizlidir.", "Perhaps what you're after is hidden."),
+    ] as I18n[],
+    secretFound: t("Bir şey buldun", "You found something"),
+    secretHint: t("açmak için ↵", "press ↵ to open"),
+    answer: t("Hayat, evren ve her şeyin cevabı", "The answer to life, the universe and everything"),
     hint: t("açmak için", "to open"),
   },
   themes: {
     editorial: t("Editöryel", "Editorial"),
+    tech: t("Teknik", "Tech"),
     terminal: t("Terminal", "Terminal"),
   },
   footer: {
@@ -456,6 +468,51 @@ export const ui = {
 /* -------------------------------------------------------------------------- */
 /*  TERMINAL TEMASI KOMUTLARI                                                 */
 /* -------------------------------------------------------------------------- */
+
+/**
+ * GIZLI KOMUTLAR
+ * `help` ciktisinda gorunmezler; yalnizca deneyerek ya da `help --all` ile
+ * bulunurlar. Kasitli olarak kesfedilecek sekilde birakildilar.
+ */
+export const terminalSecrets: { cmd: string; desc: I18n }[] = [
+  { cmd: "neofetch", desc: t("sistem bilgisi", "system info") },
+  { cmd: "uptime", desc: t("ne zamandır buradayım", "how long I've been at it") },
+  { cmd: "tree", desc: t("sitenin yapısı", "the site's structure") },
+  { cmd: "fortune", desc: t("rastgele bir söz", "a random saying") },
+  { cmd: "coffee", desc: t("yakıt", "fuel") },
+  { cmd: "matrix", desc: t("takip et beyaz tavşanı", "follow the white rabbit") },
+  { cmd: "vim", desc: t("bol şans", "good luck") },
+  { cmd: "xyzzy", desc: t("...", "...") },
+  { cmd: "unlock <kelime>", desc: t("bir şeyin kilidini açar", "unlocks something") },
+];
+
+/** `fortune` komutunun havuzu */
+export const fortunes: I18n[] = [
+  t(
+    "Bilgisayar bilimlerinde iki zor şey var: önbellek geçersiz kılma ve isimlendirme.",
+    "There are two hard things in computer science: cache invalidation and naming things.",
+  ),
+  t(
+    "Kodun %90'ı zamanın %10'unu alır. Kalan %10 da zamanın %90'ını.",
+    "The first 90% of the code takes 90% of the time. The last 10% takes the other 90%.",
+  ),
+  t(
+    "Haftalarca sürecek planlamayı aylarca kod yazarak kolayca telafi edebilirsiniz.",
+    "Weeks of coding can save you hours of planning.",
+  ),
+  t(
+    "Çalışıyor. Neden çalıştığını bilmiyorum ama çalışıyor. Dokunma.",
+    "It works. I don't know why it works. Please don't touch it.",
+  ),
+  t(
+    "Bakım, yazılım yaşam döngüsünün en pahalı aşamasıdır — bunu tezimde 118 sayfa anlattım.",
+    "Maintenance is the costliest phase of the software life cycle. I wrote 118 pages about it.",
+  ),
+  t(
+    "Her sistemin bir belgesi vardır. Genellikle kodun kendisidir.",
+    "Every system has documentation. Usually it's the source.",
+  ),
+];
 
 export const terminalHelp: { cmd: string; desc: I18n }[] = [
   { cmd: "help", desc: t("komutları listele", "list all commands") },

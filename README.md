@@ -1,7 +1,7 @@
 # Buluthan İnan — Portfolyo
 
 Next.js (static export) + TypeScript + Tailwind CSS v4 ile yazılmış, iki temalı ve
-iki dilli tek sayfa portfolyo. GitHub Pages'e statik olarak çıkar.
+iki dilli tek sayfa portfolyo (üçüncü tema gizli). GitHub Pages'e statik olarak çıkar.
 
 ## Çalıştırma
 
@@ -93,6 +93,7 @@ tüm siteye yayılır.
 | --- | --- |
 | `editorial` | Kırık beyaz kâğıt, dev serif tipografi, mürekkep mavisi vurgu (varsayılan) |
 | `terminal` | Fosfor yeşili CRT, tamamı monospace, çalışan komut satırı |
+| `tech` | **Kilitli.** Koyu zemin, gradient parıltı, grid — gizli kelimeyi bulan açar |
 
 Vurgu rengini değiştirmek için ilgili temanın `--accent` değerini düzenle.
 
@@ -115,7 +116,31 @@ Tarayıcıda kayıtlı geçersiz bir tema adı varsayılana düşer.
 
 Terminal temasındaki komut satırı şunları tanır: `help`, `whoami`, `ls projects`,
 `cat <proje>`, `cat about`, `skills`, `contact`, `theme <ad>`, `lang <tr|en>`,
-`clear`, `sudo`.
+`clear`, `sudo`. Listede görünmeyen dokuz komut daha var — `help --all` hepsini
+gösterir.
+
+## Gizli kelime
+
+Doğru kelime yazıldığında şifreli bir mesaj çözülür ve `tech` temasının kilidi
+açılır. İki yerde çalışır: komut paletinin arama kutusu ve terminaldeki
+`unlock <kelime>`.
+
+**Kelimenin kendisi kodda yok.** `src/content/secret.ts` yalnızca kelimenin
+SHA-256 özetini ve ondan türetilen anahtarla AES-256-GCM ile şifrelenmiş metni
+içerir; kaynağı okuyan biri mesajı göremez.
+
+Kelimeyi veya mesajı değiştirmek için:
+
+```bash
+node scripts/build-secret.mjs "yeni kelime" "yeni mesaj"
+```
+
+Bu komut `src/content/secret.ts` dosyasını yeniden üretir — o dosyayı elle
+düzenleme.
+
+> Dürüstlük notu: doğrulama tarayıcıda çalıştığı için kısa ya da tahmin
+> edilebilir bir kelime sözlük saldırısıyla kırılabilir. Bu "okuyandan gizli"
+> seviyesidir, sır saklama aracı değildir.
 
 ## GitHub Pages'e yayınlama
 

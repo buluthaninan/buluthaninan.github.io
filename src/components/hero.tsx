@@ -7,7 +7,7 @@ import { TerminalHero } from "./terminal-hero";
 import { coreStack, profile, ui } from "@/content/content";
 
 /**
- * İki tema, iki ayrı hero. İkisi de DOM'da durur, hangisinin görüneceğine CSS
+ * Üç tema, üç ayrı hero (biri kilitli). Üçü de DOM'da durur, hangisinin görüneceğine CSS
  * karar verir — böylece tema değişiminde yeniden render/hidrasyon zıplaması olmaz.
  */
 export function Hero() {
@@ -60,6 +60,9 @@ export function Hero() {
       >
         <div className="only-editorial">
           <EditorialHero />
+        </div>
+        <div className="only-tech">
+          <TechHero />
         </div>
         <div className="only-terminal">
           <TerminalHero />
@@ -142,6 +145,54 @@ function EditorialHero() {
     </div>
   );
 }
+
+function TechHero() {
+  const { tr } = useSite();
+
+  return (
+    <div className="flex flex-col items-center text-center">
+      <StatusPill className="mb-8" />
+
+      <p className="eyebrow mb-5 flex items-center gap-2">
+        <span className="text-accent">const</span> role =
+        <span className="text-fg">&quot;{tr(profile.role)}&quot;</span>
+      </p>
+
+      <h1 className="display text-[clamp(2.8rem,10vw,8.5rem)]">
+        <span className="bg-gradient-to-b from-white via-white to-white/45 bg-clip-text text-transparent">
+          {profile.name}
+        </span>
+      </h1>
+
+      <p className="mt-6 font-mono text-sm text-accent md:text-base">
+        <span className="text-faint">~/</span>
+        <RotatingWord />
+        <span className="caret ml-1 align-middle" />
+      </p>
+
+      <p className="mt-7 max-w-xl text-[15px] leading-relaxed text-dim">{tr(profile.tagline)}</p>
+
+      <div className="mt-9 flex flex-wrap justify-center gap-3">
+        <MagneticButton href="#work" className="!bg-accent !text-accent-fg">
+          {tr(ui.hero.viewWork)}
+          <Arrow />
+        </MagneticButton>
+        <MagneticButton href="#contact" variant="ghost">
+          {tr(ui.hero.getInTouch)}
+        </MagneticButton>
+      </div>
+
+      <div className="mt-10 flex items-center gap-3 font-mono text-[11px] text-faint">
+        <span className="status-dot" />
+        {tr(profile.location)}
+        <span className="text-line">·</span>
+        <LocalTime className="tabular-nums" />
+      </div>
+    </div>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
 
 function Arrow() {
   return (
