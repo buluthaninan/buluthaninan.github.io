@@ -454,8 +454,10 @@ body {
 
 /* ==========================================================================
    OZEL IMLEC
-   Sistem imleci yalnizca <html data-cursor="on"> varken gizlenir; bu ozniteligi
-   Cursor bileseni JS ile koyar. Betik calismazsa kullanici imlecsiz kalmaz.
+   Nokta ve halka tek bir elemanin ::before / ::after'i. Ayri elemanlar
+   oldugunda biri digerinden geri kalip kayiyormus gibi gorunuyordu.
+   Sistem imleci yalnizca <html data-cursor="on"> varken gizlenir; bu
+   ozniteligi Cursor bileseni koyar, betik calismazsa imlecsiz kalinmaz.
    ========================================================================== */
 
 html[data-cursor="on"],
@@ -463,25 +465,35 @@ html[data-cursor="on"] * {
   cursor: none !important;
 }
 
-.cursor-dot,
-.cursor-ring {
+.cursor {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 9999;
   pointer-events: none;
   will-change: transform;
+  transition: opacity 0.2s ease;
 }
 
-.cursor-dot {
+/* nokta */
+.cursor::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 8px;
   height: 8px;
   margin: -4px 0 0 -4px;
   border-radius: 999px;
-  background: var(--accent);
+  background-color: var(--accent);
 }
 
-.cursor-ring {
+/* halka */
+.cursor::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 30px;
   height: 30px;
   margin: -15px 0 0 -15px;
@@ -490,30 +502,28 @@ html[data-cursor="on"] * {
   transition:
     scale 0.25s var(--ease-out-expo),
     border-color 0.25s ease,
-    background-color 0.25s ease,
-    opacity 0.25s ease;
+    background-color 0.25s ease;
 }
-.cursor-ring[data-hot="true"] {
+.cursor[data-hot="true"]::after {
   scale: 1.5;
   border-color: var(--accent);
-  background: color-mix(in oklab, var(--accent) 12%, transparent);
+  background-color: color-mix(in oklab, var(--accent) 14%, transparent);
 }
 
 /* Terminal temasi: yuvarlak yerine blok imlec — kabuktaki caret gibi */
-[data-theme="terminal"] .cursor-dot {
+[data-theme="terminal"] .cursor::before {
   width: 8px;
   height: 16px;
   margin: -8px 0 0 -4px;
   border-radius: 0;
 }
-[data-theme="terminal"] .cursor-ring {
+[data-theme="terminal"] .cursor::after {
   border-radius: 0;
   border-style: dashed;
 }
 
 @media (hover: none), (pointer: coarse) {
-  .cursor-dot,
-  .cursor-ring {
+  .cursor {
     display: none;
   }
 }

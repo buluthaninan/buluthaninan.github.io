@@ -3,21 +3,25 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Siteye özel imleç: nokta + çevresindeki halka, ikisi de temanın rengini alır.
+ * Siteye özel imleç.
  *
- * İki önemli ayrıntı:
- *  1. Sistem imleci ancak bu bileşen gerçekten çalışırsa gizlenir — `data-cursor`
- *     özniteliğini JS koyar. Betik yüklenmezse kullanıcı imleçsiz kalmaz.
- *  2. Nokta ve halka aynı olayda, aynı değere yazılır. Daha önce halka imleci
- *     gecikmeli takip ediyordu ve kayıyormuş gibi görünüyordu.
+ * Nokta ve halka ayrı iki div değil, TEK bir elemanın ::before / ::after'ı.
+ * Daha önce ikisi ayrı elemandı ve biri diğerinden geri kalıp kayıyormuş gibi
+ * görünüyordu; tek eleman olunca tek bir transform yazılıyor ve ayrışmaları
+ * yapısal olarak imkânsız.
+ *
+ * Sistem imleci yalnızca bu bileşen gerçekten çalıştığında gizlenir —
+ * `data-cursor` özniteliğini JS koyar, betik yüklenmezse imleçsiz kalınmaz.
  */
 export function Cursor() {
-  const dot = useRef<HTMLDivElement>(null);
-  const ring = useRef<HTMLDivElement>(null);
+  const el = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Dokunmatik cihazda özel imleç yok; sistem imleci de gizlenmez.
     if (window.matchMedia("(hover: none), (pointer: coarse)").matches) return;
+
+    const node = el.current;
+    if (!node) return;
 
     const root = document.documentElement;
     root.dataset.cursor = "on";
@@ -26,18 +30,14 @@ export function Cursor() {
     let lastTarget: EventTarget | null = null;
 
     const onMove = (e: MouseEvent) => {
-      const t = `translate(${e.clientX}px, ${e.clientY}px)`;
-      if (dot.current) dot.current.style.transform = t;
-      if (ring.current) ring.current.style.transform = t;
+      node.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
 
       // closest() ve DOM yazımı yalnızca hedef değiştiğinde
       if (e.target !== lastTarget) {
         lastTarget = e.target;
-        const el = e.target as HTMLElement | null;
-        const target = el?.closest?.("a, button, [data-cursor='hot'], input, textarea") as
-          | HTMLElement
-          | null
-          | undefined;
+        const target = (e.target as HTMLElement | null)?.closest?.(
+          "a, button, [data-cursor='hot'], input, textarea",
+        ) as HTMLElement | null | undefined;
 
         // Deneyim satırları gibi tam genişlikte bloklar da <button>. Halkanın
         // onların üzerinde de büyümesi metnin ortasında kocaman bir daire
@@ -47,20 +47,15 @@ export function Cursor() {
           const r = target.getBoundingClientRect();
           next = r.width < 420 && r.height < 120;
         }
-
         if (next !== hot) {
           hot = next;
-          if (ring.current) ring.current.dataset.hot = String(hot);
+          node.dataset.hot = String(hot);
         }
       }
     };
 
-    const setVisible = (v: string) => () => {
-      if (dot.current) dot.current.style.opacity = v;
-      if (ring.current) ring.current.style.opacity = v;
-    };
-    const onLeave = setVisible("0");
-    const onEnter = setVisible("1");
+    const onLeave = () => (node.style.opacity = "0");
+    const onEnter = () => (node.style.opacity = "1");
 
     window.addEventListener("mousemove", onMove, { passive: true });
     document.addEventListener("mouseleave", onLeave);
@@ -74,10 +69,5 @@ export function Cursor() {
     };
   }, []);
 
-  return (
-    <>
-      <div ref={dot} className="cursor-dot" aria-hidden="true" />
-      <div ref={ring} className="cursor-ring" aria-hidden="true" />
-    </>
-  );
+  return <div ref={el} className="cursor" aria-hidden="true" />;
 }
