@@ -233,15 +233,16 @@ export const projects: Project[] = [
     slug: "samim",
     title: t("SAMIM — Yüksek Lisans Tezi", "SAMIM — Master's Thesis"),
     year: "2026",
+    // Tez YOK'te yayinlandiginda linki buraya: links: { live: "https://tez.yok.gov.tr/..." }
     summary: t(
-      "Scrum, devreye alım sonrası bakımın kesinti odaklı doğası için tasarlanmamıştı. 10 sektör profesyoneliyle mülakat ve 15 kişilik uzman paneliyle yürüttüğüm AHP analizi, sorunun %45'inin acil işler ve teknik borçtan geldiğini gösterdi. SAMIM, Scrum'ı baştan yazmadan bu kısır döngüyü kıran bir uyarlama modeli.",
-      "Scrum was never designed for the interrupt-driven nature of post-deployment maintenance. Interviews with 10 practitioners and an AHP study with a 15-expert panel showed that urgent work and technical debt account for 45% of the problem. SAMIM is an adaptation model that breaks that loop without rewriting Scrum.",
+      "Scrum, devreye alım sonrası bakımın kesinti odaklı doğası için tasarlanmamıştı. Sistematik literatür taraması, 10 sektör profesyoneliyle mülakat ve 15 kişilik uzman paneliyle AHP analizi yürüttüm; sorunun %45'i acil işler ve teknik borçtan çıktı. Geliştirdiğim SAMIM modeli Scrum'ı baştan yazmıyor, dört müdahaleyle kısır döngüyü kırıyor: triyaj ve kurumsal hafızadan sorumlu dönüşümlü System Steward rolü, kapasite tamponları, takas politikası ve stabilizasyon penceresi.",
+      "Scrum was never designed for the interrupt-driven nature of post-deployment maintenance. I ran a systematic literature review, interviews with 10 practitioners and an AHP study with a 15-expert panel; urgent work and technical debt accounted for 45% of the problem. The SAMIM model I developed doesn't rewrite Scrum — it breaks the loop with four interventions: a rotating System Steward role owning triage and organisational memory, capacity buffers, a swap policy, and a stabilisation window.",
     ),
     impact: t(
       "Grup tutarlılık oranı 0,0089 · jüri tarafından kabul edildi",
       "Group consistency ratio 0.0089 · accepted by the jury",
     ),
-    tags: ["Scrum", "AHP", "Software Maintenance", "SLR"],
+    tags: ["Scrum", "AHP", "Technical Debt", "Software Maintenance", "SLR"],
     links: {},
     pattern: "waves",
     accent: "#8b5cf6",
