@@ -325,7 +325,7 @@ export const experience: Experience[] = [
   {
     org: "İzmir Ekonomi Üniversitesi",
     role: t("Yazılım Mühendisliği, Lisans", "B.Sc. Software Engineering"),
-    period: t("2018 — 2022", "2018 — 2022"),
+    period: t("Eyl 2018 — Haz 2022", "Sep 2018 — Jun 2022"),
     description: t(
       "3,01 ortalamayla mezun oldum. Tiyatro kulübünde başkan yardımcılığı yaptım — sahnede de, sahne arkasında da.",
       "Graduated with a 3.01 GPA. Served as vice president of the theatre club — on stage and behind it.",

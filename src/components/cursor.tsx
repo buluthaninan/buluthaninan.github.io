@@ -31,7 +31,20 @@ export function Cursor() {
       if (e.target !== lastTarget) {
         lastTarget = e.target;
         const el = e.target as HTMLElement | null;
-        const next = !!el?.closest?.("a, button, [data-cursor='hot'], input, textarea");
+        const target = el?.closest?.("a, button, [data-cursor='hot'], input, textarea") as
+          | HTMLElement
+          | null
+          | undefined;
+
+        // Deneyim satırları gibi tam genişlikte bloklar da <button>. Halkanın
+        // onların üzerinde de büyümesi, metnin ortasında kocaman bir daire
+        // bırakıyordu — büyütmeyi yalnızca elle tutulur boyuttaki hedeflere uygula.
+        let next = false;
+        if (target) {
+          const r = target.getBoundingClientRect();
+          next = r.width < 420 && r.height < 120;
+        }
+
         if (next !== hot) {
           hot = next;
           if (ring.current) ring.current.dataset.hot = String(hot);

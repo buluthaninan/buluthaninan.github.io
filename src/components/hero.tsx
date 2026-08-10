@@ -104,7 +104,9 @@ function EditorialHero() {
 
       <h1 className="display text-[clamp(3.2rem,13.5vw,12.5rem)]">
         {words.map((w, i) => (
-          <span key={i} className="block overflow-hidden">
+          // pt/-mt cifti: overflow-hidden kirpma kutusunu yukari genisletir ama
+          // yerlesimi kaydirmaz. Olmazsa 'İ' harfinin noktasi kesiliyor.
+          <span key={i} className="block overflow-hidden pt-[0.24em] -mt-[0.24em]">
             <span
               className="block animate-[rise_1.1s_var(--ease-out-expo)_both]"
               style={{ animationDelay: `${120 + i * 110}ms` }}

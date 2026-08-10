@@ -131,7 +131,7 @@ CV = {
             {
                 "org": "İzmir Ekonomi Üniversitesi",
                 "role": "Yazılım Mühendisliği, Lisans",
-                "period": "2018 — 2022",
+                "period": "Eylül 2018 — Haziran 2022",
                 "place": "Ortalama 3,01 / 4,00",
                 "bullets": ["Tiyatro Kulübü Başkan Yardımcısı."],
             },
@@ -216,7 +216,7 @@ CV = {
             {
                 "org": "Izmir University of Economics",
                 "role": "B.Sc. Software Engineering",
-                "period": "2018 — 2022",
+                "period": "September 2018 — June 2022",
                 "place": "GPA 3.01 / 4.00",
                 "bullets": ["Vice President, Theatre Club."],
             },
