@@ -12,12 +12,6 @@ const THEME_ICON: Record<Theme, React.ReactNode> = {
       <path d="M5.5 6.5h5M5.5 9h5M5.5 11.5h3" strokeLinecap="round" />
     </svg>
   ),
-  tech: (
-    <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.4">
-      <path d="M8 1.5 14 5v6l-6 3.5L2 11V5z" strokeLinejoin="round" />
-      <circle cx="8" cy="8" r="2.2" />
-    </svg>
-  ),
   terminal: (
     <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.5">
       <path d="M3 4.5 6.5 8 3 11.5M8.5 11.5H13" strokeLinecap="round" strokeLinejoin="round" />

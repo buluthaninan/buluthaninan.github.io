@@ -1,4 +1,4 @@
-export const THEMES = ["editorial", "tech", "terminal"] as const;
+export const THEMES = ["editorial", "terminal"] as const;
 export type Theme = (typeof THEMES)[number];
 
 export const LANGS = ["tr", "en"] as const;

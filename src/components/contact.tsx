@@ -35,9 +35,14 @@ export function Contact() {
 
       {/* Dev e-posta bağlantısı */}
       <Reveal delay={90}>
+        {/*
+          Punto, en dar font olan monospace'e göre hesaplandı: 25 karakterlik
+          e-posta ~15em yer kaplıyor, bu yüzden 5.2vw üstü taşırıyordu.
+          whitespace-nowrap da "…gmail.co / m" gibi çirkin bölünmeyi engelliyor.
+        */}
         <a
           href={`mailto:${contact.email}`}
-          className="group mt-14 block break-all text-[clamp(1.7rem,7.5vw,5.5rem)] leading-[1.05] tracking-tight"
+          className="group mt-14 block whitespace-nowrap text-[clamp(1.05rem,5.2vw,4.25rem)] leading-[1.15] tracking-tight"
         >
           <span className="display bg-[linear-gradient(to_right,var(--color-accent),var(--color-accent))] bg-[length:0%_100%] bg-no-repeat bg-clip-text transition-[background-size] duration-700 ease-[var(--ease-out-expo)] group-hover:bg-[length:100%_100%] group-hover:text-transparent">
             {contact.email}

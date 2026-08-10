@@ -1,16 +1,7 @@
 # Buluthan İnan — Portfolyo
 
-Next.js (static export) + TypeScript + Tailwind CSS v4 ile yazılmış, üç temalı ve
-iki dilli tek sayfa portfolyo.
-
-## ⚠ Yayına almadan önce
-
-1. **CV dosyaları git'e dahil değil.** İkisi de telefon numarası içeriyor ve site
-   herkese açık olacak. `.gitignore` içindeki açıklamayı oku ve karar ver.
-   Karar vermeden push edersen sorun olmaz — dosyalar zaten gitmez, sadece
-   sitedeki "CV indir" butonu 404 verir.
-2. **`src/content/content.ts` başındaki "DOĞRULANMASI GEREKENLER" listesine bak.**
-   Proje yılları, yüksek lisans programının adı ve lisans eğitimi CV'lerde yoktu.
+Next.js (static export) + TypeScript + Tailwind CSS v4 ile yazılmış, iki temalı ve
+iki dilli tek sayfa portfolyo. GitHub Pages'e statik olarak çıkar.
 
 ## Çalıştırma
 
@@ -23,7 +14,7 @@ npm run dev
 ### Gerçek hızı görmek için
 
 `npm run dev` React'i geliştirme modunda çalıştırır ve belirgin şekilde yavaştır.
-Sitenin yayındaki gerçek performansını görmek için üretim çıktısını çalıştır:
+Yayındaki gerçek performansı görmek için üretim çıktısını çalıştır:
 
 ```bash
 npm run build
@@ -40,47 +31,78 @@ npm run preview
 
 ## İçeriği değiştirme
 
-**Tüm metinler ve veriler tek dosyada:** `src/content/content.ts`
+**Tüm metinler ve veriler tek dosyada:** [`src/content/content.ts`](src/content/content.ts)
 
-Şu an içindeki her şey örnek (mock) veridir. Bileşenlere dokunmadan sadece bu dosyayı
-düzenleyerek siteyi kendi bilgilerinle doldurabilirsin. Her metin `{ tr, en }` biçiminde
-iki dillidir:
+Bileşenlere dokunmadan siteyi buradan güncelleyebilirsin. Her metin `{ tr, en }`
+biçiminde iki dillidir:
 
 ```ts
-role: t("Yazılım Geliştirici", "Software Engineer"),
+role: t("Full Stack & Flutter Developer", "Full Stack & Flutter Developer"),
 ```
 
-- `profile` — ad, unvan, konum, müsaitlik durumu, hero'da dönen kelimeler
-- `contact` — e-posta, sosyal bağlantılar, CV dosyası
-- `stats` — hero altındaki sayılar
-- `projects` — projeler (görsel yoksa otomatik desen üretilir)
-- `skills` — kategorilere ayrılmış teknolojiler
-- `experience` — iş/eğitim zaman çizelgesi
-- `about` — hakkımda paragrafları ve "şu an" kartları
-- `ui` — butonlar, bölüm başlıkları gibi arayüz metinleri
+| Bölüm | İçerik |
+| --- | --- |
+| `profile` | Ad, unvan, konum, durum rozeti, hero'da dönen kelimeler |
+| `contact` | E-posta, sosyal bağlantılar, CV yolları |
+| `coreStack` | Hero'nun altındaki teknoloji şeridi |
+| `projects` | Proje kartları |
+| `skills` | Kategorilere ayrılmış teknolojiler |
+| `certificates` | Sertifikalar |
+| `experience` | İş ve eğitim zaman çizelgesi |
+| `about` | Hakkımda paragrafları ve bilgi kartları |
+| `ui` | Buton, başlık gibi arayüz metinleri |
+
+### Yeni proje eklemek
+
+`projects` dizisine bir nesne ekle. Görsel zorunlu değil — `image` boşken `slug`
+ve `pattern` alanlarına göre kartın kapağı SVG olarak üretilir. Kullanılabilir
+desenler: `grid`, `waves`, `orbit`, `noise`, `bars`, `mesh`, `scan`.
+
+Grid asimetrik: kartların genişliği `src/components/projects.tsx` içindeki
+`SPAN_CLASS` dizisinden gelir. Proje sayısını değiştirirsen o diziyi de güncelle.
 
 ### Proje görseli eklemek
 
-Görseli `public/` içine koy, sonra ilgili projeye `image: "/atlas.png"` satırını ekle.
-Bu alan boşken slug'a göre üretilen SVG desen kullanılır.
+Görseli `public/` içine koy, projeye `image: "/ornek.png"` satırını ekle.
 
-### CV eklemek
+## CV
 
-PDF'i `public/cv.pdf` olarak koy, `content.ts` içinde `resume: "/cv.pdf"` yap.
-Boş (`null`) kaldığı sürece indirme butonu görünmez.
+İki dildeki PDF, siteyle aynı bilgilerden üretilir:
+
+```bash
+python scripts/build_cv.py
+```
+
+Çıktı: `public/cv-buluthan-inan-tr.pdf` ve `public/cv-buluthan-inan-en.pdf`
+(tek sayfa, A4). Metni değiştirmek için [`scripts/build_cv.py`](scripts/build_cv.py)
+içindeki `CV` sözlüğünü düzenle — PDF'leri elle düzenleme, üretilen dosyalardır.
+
+Gereksinim: `pip install reportlab`. Segoe UI kaydedilir, Türkçe karakterler
+sorunsuz çıkar.
+
+> Not: PDF adı değişirse `content.ts` içindeki `resume` yollarını da güncelle.
+> İsim değiştirmek aynı zamanda tarayıcı önbelleğini de temizler.
 
 ## Temalar
 
-`src/app/globals.css` içinde üç blok halinde tanımlı. Renk, font, köşe yuvarlaklığı ve
-gölge değerleri sadece CSS değişkenleridir — birini değiştirmek tüm siteye yayılır.
+`src/app/globals.css` içinde iki blok halinde tanımlı. Renk, font, köşe
+yuvarlaklığı ve gölge değerleri sadece CSS değişkenleridir — birini değiştirmek
+tüm siteye yayılır.
 
 | Tema | Karakter |
 | --- | --- |
-| `editorial` | Kırık beyaz kâğıt, dev serif tipografi, tek sıcak vurgu (varsayılan) |
-| `tech` | Koyu zemin, gradient parıltı, grid, cam yüzeyler |
+| `editorial` | Kırık beyaz kâğıt, dev serif tipografi, mürekkep mavisi vurgu (varsayılan) |
 | `terminal` | Fosfor yeşili CRT, tamamı monospace, çalışan komut satırı |
 
 Vurgu rengini değiştirmek için ilgili temanın `--accent` değerini düzenle.
+
+Her temanın kendi hero'su var ve **ikisi de DOM'da durur**; hangisinin
+görüneceğine `.only-editorial` / `.only-terminal` sınıflarıyla CSS karar verir.
+Böylece tema değişiminde React yeniden render etmez, hiçbir sıçrama olmaz.
+
+Tema eklemek/çıkarmak için `src/lib/site.ts` içindeki `THEMES` dizisi, globals.css
+içindeki token bloğu ve `nav.tsx` içindeki `THEME_ICON` birlikte güncellenmeli.
+Tarayıcıda kayıtlı geçersiz bir tema adı varsayılana düşer.
 
 ## Klavye
 
@@ -91,8 +113,9 @@ Vurgu rengini değiştirmek için ilgili temanın `--accent` değerini düzenle.
 | `Esc` | Kapat |
 | `↑↑↓↓←→←→BA` | Gizli sürpriz |
 
-Terminal temasındaki komut satırı `help`, `whoami`, `ls projects`, `cat <proje>`,
-`skills`, `contact`, `theme <ad>`, `lang <tr\|en>`, `clear`, `sudo` komutlarını tanır.
+Terminal temasındaki komut satırı şunları tanır: `help`, `whoami`, `ls projects`,
+`cat <proje>`, `cat about`, `skills`, `contact`, `theme <ad>`, `lang <tr|en>`,
+`clear`, `sudo`.
 
 ## GitHub Pages'e yayınlama
 
@@ -111,7 +134,7 @@ git remote add origin https://github.com/buluthaninan/buluthaninan.github.io.git
 git push -u origin main
 ```
 
-Site birkaç dakika içinde `https://buluthaninan.github.io` adresinde yayında olur.
+Site birkaç dakika içinde `https://buluthaninan.github.io` adresinde yayına girer.
 
 ### Depo adı farklı olursa
 

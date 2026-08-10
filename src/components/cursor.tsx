@@ -55,10 +55,12 @@ export function Cursor() {
     const loop = () => {
       const dx = mx - rx;
       const dy = my - ry;
-      // Halka yerine oturduysa boşuna yazma
+      // Halka yerine oturduysa boşuna yazma.
+      // Takip katsayısı bilerek yüksek: düşük değerde halka imleçten kopuk
+      // görünüyor ve boşlukta salınan bir daire izlenimi veriyordu.
       if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
-        rx += dx * 0.18;
-        ry += dy * 0.18;
+        rx += dx * 0.34;
+        ry += dy * 0.34;
         if (ring.current) ring.current.style.transform = `translate(${rx}px, ${ry}px)`;
       }
       raf = requestAnimationFrame(loop);

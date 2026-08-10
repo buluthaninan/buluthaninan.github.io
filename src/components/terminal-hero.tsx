@@ -150,7 +150,7 @@ export function TerminalHero() {
           push({ kind: "ok", text: `→ ${arg}` });
           setTimeout(() => setTheme(arg as Theme), 260);
         } else {
-          push({ kind: "err", text: `theme: editorial | tech | terminal` });
+          push({ kind: "err", text: `theme: ${THEMES.join(" | ")}` });
         }
         break;
 

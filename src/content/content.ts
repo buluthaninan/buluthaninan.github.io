@@ -77,8 +77,8 @@ export const contact = {
    * elle duzenleme, iceriği o dosyadan degistir. Butonu gizlemek icin null yap.
    */
   resume: {
-    tr: "/buluthan-inan-cv-tr.pdf",
-    en: "/buluthan-inan-cv-en.pdf",
+    tr: "/cv-buluthan-inan-tr.pdf",
+    en: "/cv-buluthan-inan-en.pdf",
   } as I18n | null,
 };
 
@@ -422,7 +422,6 @@ export const ui = {
   },
   themes: {
     editorial: t("Editöryel", "Editorial"),
-    tech: t("Teknik", "Tech"),
     terminal: t("Terminal", "Terminal"),
   },
   footer: {

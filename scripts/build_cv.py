@@ -2,7 +2,7 @@
 CV URETICISI
 ------------
 Siteyle ayni bilgilerden tek sayfalik, uluslararasi formatta CV uretir.
-Cikti: public/buluthan-inan-cv-tr.pdf ve public/buluthan-inan-cv-en.pdf
+Cikti: public/cv-buluthan-inan-tr.pdf ve public/cv-buluthan-inan-en.pdf
 
 Calistirmak icin:  python scripts/build_cv.py
 Gereksinim:        pip install reportlab
@@ -327,7 +327,7 @@ def build(lang):
     out = os.path.join(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
         "public",
-        f"buluthan-inan-cv-{lang}.pdf",
+        f"cv-buluthan-inan-{lang}.pdf",
     )
 
     doc = BaseDocTemplate(
