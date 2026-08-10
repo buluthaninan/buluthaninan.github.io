@@ -6,11 +6,8 @@
  *
  * Her metin { tr, en } seklinde iki dillidir.
  *
- * DOGRULANMASI GEREKENLER (CV'lerde yoktu, tahmin edildi):
- *   - Proje yillari (`year` alanlari)
- *   - Yuksek lisans programinin tam adi ve baslangic yili
- *   - Lisans egitimi (universite, bolum, yillar) — hicbir CV'de yok
- *   - Uygulamalarin magaza linkleri
+ * ACIK KALAN TEK SEY:
+ *   - Lisansin baslangic yili (asagida `— 2022` yaziyor, teyit bekliyor)
  */
 
 export type Lang = "tr" | "en";
@@ -135,8 +132,7 @@ export const projects: Project[] = [
   {
     slug: "fis-okuma",
     title: t("Fiş Okuma & Harcama Takibi", "Receipt Reading & Expense Tracking"),
-    // TODO: yil teyit edilecek
-    year: "2025",
+    year: "2026",
     summary: t(
       "Sıfırdan kurduğum tek modül. Çalışan fişin fotoğrafını çekiyor, OpenAI görüntüyü okuyup tutarı ve kalemleri çıkarıyor, kayıt ERP'ye düşüyor. Kredi kartı ve avans harcamaları böyle takip ediliyor — muhasebe ve mali işler için yazıldı.",
       "The one module I built from the ground up. An employee photographs a receipt, OpenAI reads the image and extracts the amount and line items, and the record lands in the ERP. This is how credit-card and cash-advance spending is tracked — built for accounting and finance.",
