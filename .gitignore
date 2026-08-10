@@ -6,14 +6,5 @@ out/
 next-env.d.ts
 .env*.local
 
-# ---------------------------------------------------------------------------
-# CV dosyalari gecici olarak takip DISI birakildi.
-#
-# Sebep: iki PDF de telefon numarasi iceriyor ve site herkese acik olacak.
-# Bir kez commit'lenirse git gecmisinden silmek zahmetli — once karar ver:
-#   a) Numarasiz bir surumunu public/ icine koy, sonra bu satirlari sil
-#   b) CV'yi siteden tamamen kaldir: content.ts icinde `resume: null` yap
-#      ve public/*.pdf dosyalarini sil
-# ---------------------------------------------------------------------------
-public/buluthan-inan-cv-tr.pdf
-public/buluthan-inan-cv-en.pdf
+# CV PDF'leri artik depoda: scripts/build_cv.py ile uretiliyor.
+# Telefon numarasi bilerek iceride — yayinlanmasi kararlastirildi.

@@ -5,9 +5,7 @@
  * sadece bu dosyayi duzenlemek yeterli.
  *
  * Her metin { tr, en } seklinde iki dillidir.
- *
- * ACIK KALAN TEK SEY:
- *   - Lisansin baslangic yili (asagida `— 2022` yaziyor, teyit bekliyor)
+ * Tum veriler dogrulanmistir — tahmin edilen alan kalmadi.
  */
 
 export type Lang = "tr" | "en";
@@ -75,8 +73,8 @@ export const contact = {
   ],
 
   /**
-   * Dile gore degisen CV. Yayina almadan once ICINDEKI TELEFON NUMARASINA dikkat —
-   * site herkese acik olacak. Kaldirmak icin null yap.
+   * Dile gore degisen CV. Bu PDF'ler `python scripts/build_cv.py` ile uretiliyor —
+   * elle duzenleme, iceriği o dosyadan degistir. Butonu gizlemek icin null yap.
    */
   resume: {
     tr: "/buluthan-inan-cv-tr.pdf",
@@ -325,10 +323,9 @@ export const experience: Experience[] = [
     tags: ["Scrum", "AHP", "Software Maintenance"],
   },
   {
-    // TODO: baslangic ve mezuniyet yillari teyit edilecek
     org: "İzmir Ekonomi Üniversitesi",
     role: t("Yazılım Mühendisliği, Lisans", "B.Sc. Software Engineering"),
-    period: t("— 2022", "— 2022"),
+    period: t("2018 — 2022", "2018 — 2022"),
     description: t(
       "3,01 ortalamayla mezun oldum. Tiyatro kulübünde başkan yardımcılığı yaptım — sahnede de, sahne arkasında da.",
       "Graduated with a 3.01 GPA. Served as vice president of the theatre club — on stage and behind it.",
