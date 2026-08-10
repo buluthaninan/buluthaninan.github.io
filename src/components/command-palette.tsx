@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useSite } from "./providers";
+import { ModKey } from "./bits";
 import { contact, projects, ui } from "@/content/content";
 import { SECTIONS, THEMES, cx, type Theme } from "@/lib/site";
 
@@ -225,7 +226,7 @@ export function CommandPalette() {
         <div className="flex shrink-0 items-center gap-4 border-t border-line px-4 py-2 font-mono text-[10px] text-faint">
           <span>↑↓ {tr(ui.palette.navigate)}</span>
           <span>↵ {tr(ui.palette.hint)}</span>
-          <span className="ml-auto">⌘K</span>
+          <ModKey className="ml-auto" />
         </div>
       </div>
     </div>

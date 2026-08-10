@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSite } from "./providers";
+import { ModKey } from "./bits";
 import { profile, ui } from "@/content/content";
 import { SECTIONS, THEMES, cx, type Theme } from "@/lib/site";
 
@@ -117,13 +118,13 @@ export function Nav() {
             <button
               onClick={() => setPaletteOpen(true)}
               className="hidden items-center gap-2 rounded-[var(--r-pill)] border border-line bg-surface px-3 py-1.5 text-dim transition-colors duration-300 hover:text-fg lg:flex"
-              aria-label="⌘K"
+              aria-label={tr(ui.palette.open)}
             >
               <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <circle cx="7" cy="7" r="4.5" />
                 <path d="m10.5 10.5 3 3" strokeLinecap="round" />
               </svg>
-              <kbd className="font-mono text-[10px] tracking-widest">⌘K</kbd>
+              <ModKey className="text-[10px] tracking-widest" />
             </button>
 
             {/* Tema seçici */}

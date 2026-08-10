@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useSite } from "./providers";
 import { Reveal } from "./reveal";
-import { StatusPill, LocalTime, SectionHeading } from "./bits";
+import { StatusPill, LocalTime, SectionHeading, TextWithKey } from "./bits";
 import { contact, profile, ui } from "@/content/content";
 
 export function Contact() {
@@ -126,7 +126,9 @@ export function Footer() {
         <p className="mono-xs text-faint">
           © {year} {profile.name} — {tr(ui.footer.rights)}
         </p>
-        <p className="mono-xs text-faint">{tr(ui.footer.secret)}</p>
+        <p className="mono-xs text-faint">
+          <TextWithKey text={tr(ui.footer.secret)} />
+        </p>
         <p className="mono-xs flex items-center gap-2 text-faint">
           <span className="status-dot" />
           {tr(profile.location)}

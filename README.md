@@ -108,7 +108,7 @@ Tarayıcıda kayıtlı geçersiz bir tema adı varsayılana düşer.
 
 | Kısayol | Etki |
 | --- | --- |
-| `⌘K` / `Ctrl+K` | Komut paleti |
+| `⌘K` / `Ctrl+K` | Komut paleti — etiket platforma göre değişir |
 | `↑` `↓` `↵` | Palette gezinme |
 | `Esc` | Kapat |
 | `↑↑↓↓←→←→BA` | Gizli sürpriz |

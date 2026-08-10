@@ -437,6 +437,22 @@ body {
 }
 
 /* ==========================================================================
+   KISAYOL ETIKETI
+   Ayni etiketin iki hali de DOM'da durur, dogru olani CSS gosterir. Boylece
+   sunucu ile istemci ayni HTML'i uretir. Varsayilan Ctrl — Apple'da ⌘.
+   ========================================================================== */
+
+.mod-apple {
+  display: none;
+}
+[data-os="apple"] .mod-apple {
+  display: inline;
+}
+[data-os="apple"] .mod-other {
+  display: none;
+}
+
+/* ==========================================================================
    OZEL IMLEC
    Sistem imleci yalnizca <html data-cursor="on"> varken gizlenir; bu ozniteligi
    Cursor bileseni JS ile koyar. Betik calismazsa kullanici imlecsiz kalmaz.

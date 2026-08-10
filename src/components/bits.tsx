@@ -195,6 +195,37 @@ export function SectionHeading({
   );
 }
 
+/**
+ * Komut paleti kısayolunun etiketi. İki hali de basılır, hangisinin görüneceğine
+ * `<html data-os>` üzerinden CSS karar verir — Apple'da ⌘K, diğerlerinde Ctrl+K.
+ */
+export function ModKey({ className }: { className?: string }) {
+  return (
+    <span className={cx("font-mono whitespace-nowrap", className)}>
+      <span className="mod-apple">⌘</span>
+      <span className="mod-other">Ctrl+</span>K
+    </span>
+  );
+}
+
+/**
+ * İçinde `{kbd}` geçen bir metni, o noktaya kısayol etiketini koyarak basar.
+ * Metinler content.ts'te düz yazı olduğu için JSX'i buradan enjekte ediyoruz.
+ */
+export function TextWithKey({ text, keyClassName }: { text: string; keyClassName?: string }) {
+  const parts = text.split("{kbd}");
+  return (
+    <>
+      {parts.map((part, i) => (
+        <span key={i}>
+          {part}
+          {i < parts.length - 1 && <ModKey className={keyClassName} />}
+        </span>
+      ))}
+    </>
+  );
+}
+
 /** Aşağı kaydır göstergesi */
 export function ScrollCue() {
   const { tr } = useSite();

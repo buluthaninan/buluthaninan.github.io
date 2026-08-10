@@ -436,6 +436,7 @@ export const ui = {
     language: t("Dil", "Language"),
     links: t("Bağlantılar", "Links"),
     empty: t("Sonuç yok.", "No results."),
+    open: t("Komut paletini aç", "Open command palette"),
     hint: t("açmak için", "to open"),
   },
   themes: {
@@ -446,8 +447,8 @@ export const ui = {
     built: t("Next.js ile yapıldı", "Built with Next.js"),
     rights: t("Tüm hakları saklıdır.", "All rights reserved."),
     secret: t(
-      "İpucu: ⌘K dene. Ya da yukarı-yukarı-aşağı-aşağı…",
-      "Hint: try ⌘K. Or up-up-down-down…",
+      "İpucu: {kbd} dene. Ya da yukarı-yukarı-aşağı-aşağı…",
+      "Hint: try {kbd}. Or up-up-down-down…",
     ),
   },
 };

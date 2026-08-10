@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSite } from "./providers";
 import { about, contact, profile, projects, skills, terminalHelp } from "@/content/content";
-import { THEMES, type Theme } from "@/lib/site";
+import { THEMES, modKeyLabel, type Theme } from "@/lib/site";
 
 type Line = { kind: "in" | "out" | "sys" | "ok" | "err"; text: string };
 
@@ -24,13 +24,19 @@ export function TerminalHero() {
           { kind: "sys", text: `${profile.handle}@portfolio — v1.0.0` },
           { kind: "out", text: `${profile.name} · ${tr(profile.role)}` },
           { kind: "out", text: tr(profile.tagline) },
-          { kind: "sys", text: "Komutları görmek için 'help' yaz. İpucu: ⌘K de var." },
+          {
+            kind: "sys",
+            text: `Komutları görmek için 'help' yaz. İpucu: ${modKeyLabel()} de var.`,
+          },
         ]
       : [
           { kind: "sys", text: `${profile.handle}@portfolio — v1.0.0` },
           { kind: "out", text: `${profile.name} · ${tr(profile.role)}` },
           { kind: "out", text: tr(profile.tagline) },
-          { kind: "sys", text: "Type 'help' to see the commands. Tip: ⌘K works too." },
+          {
+            kind: "sys",
+            text: `Type 'help' to see the commands. Tip: ${modKeyLabel()} works too.`,
+          },
         ];
 
   // Açılış satırlarını harf harf değil, satır satır yaz
@@ -261,7 +267,7 @@ export function TerminalHero() {
         <span>↑↓ {lang === "tr" ? "geçmiş" : "history"}</span>
         <span>help</span>
         <span>ls projects</span>
-        <span>theme tech</span>
+        <span>theme editorial</span>
         <span>sudo hire-me</span>
       </div>
     </div>
