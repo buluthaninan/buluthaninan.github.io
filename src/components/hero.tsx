@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { useSite } from "./providers";
 import { StatusPill, LocalTime, MagneticButton, RotatingWord, ScrollCue } from "./bits";
 import { TerminalHero } from "./terminal-hero";
-import { profile, stats, ui } from "@/content/content";
+import { coreStack, profile, ui } from "@/content/content";
 
 /**
  * Üç tema, üç ayrı hero. Üçü de DOM'da durur, CSS hangisinin görüneceğine karar
@@ -69,16 +69,15 @@ export function Hero() {
         </div>
 
         {/* Ortak alt şerit */}
-        <div className="mt-14 flex flex-wrap items-end justify-between gap-8 border-t border-line pt-6">
+        <div className="mt-14 flex flex-wrap items-center justify-between gap-6 border-t border-line pt-6">
           <ScrollCue />
-          <dl className="flex flex-wrap gap-x-10 gap-y-4">
-            {stats.map((s) => (
-              <div key={s.value} className="flex flex-col">
-                <dt className="display text-2xl md:text-3xl">{s.value}</dt>
-                <dd className="mono-xs text-dim">{tr(s.label)}</dd>
-              </div>
+          <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            {coreStack.map((s) => (
+              <li key={s} className="mono-xs text-dim transition-colors duration-300 hover:text-accent">
+                {s}
+              </li>
             ))}
-          </dl>
+          </ul>
         </div>
       </div>
     </section>

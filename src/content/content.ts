@@ -52,8 +52,8 @@ export const profile = {
   ),
 
   intro: t(
-    "Web tarafında C# ve React, mobilde Flutter. Bir ERP modülünün veritabanı şemasından el terminalindeki barkod ekranına kadar zincirin tamamını kurabiliyorum.",
-    "C# and React on the web, Flutter on mobile. I can build the whole chain — from an ERP module's database schema to the barcode screen on a handheld terminal.",
+    "Web tarafında C# ve React, mobilde Flutter. Ama iş sadece kod yazmakla bitmiyor: ihtiyacı analiz etmek, çözümü tasarlamak, test etmek ve kullanacak kişiyle konuşmak da aynı masada.",
+    "C# and React on the web, Flutter on mobile. But the job doesn't end at writing code: analysing the need, designing the solution, testing it and talking to the people who'll use it all land on the same desk.",
   ),
 };
 
@@ -88,15 +88,11 @@ export const contact = {
 };
 
 /* -------------------------------------------------------------------------- */
-/*  ISTATISTIKLER                                                             */
+/*  CEKIRDEK YIGIN                                                            */
+/*  Hero'nun altindaki serit. Once uydurma istatistikler vardi, kaldirildi.   */
 /* -------------------------------------------------------------------------- */
 
-export const stats = [
-  { value: "100+", label: t("günlük ERP kullanıcısı", "daily ERP users") },
-  { value: "4", label: t("yayınlanan mobil uygulama", "published mobile apps") },
-  { value: "3+", label: t("yıl kurumsal ERP", "years on enterprise ERP") },
-  { value: "2", label: t("mağaza · iOS & Android", "stores · iOS & Android") },
-];
+export const coreStack = ["C#", ".NET Core", "React", "Flutter", "SQL Server"];
 
 /* -------------------------------------------------------------------------- */
 /*  PROJELER                                                                  */
@@ -157,11 +153,12 @@ export const projects: Project[] = [
     slug: "bolge-gecis",
     title: t("Bölge Geçiş", "Zone Transition"),
     year: "2024",
+    // Not: bu bir guvenlik sistemi. Isleyisine dair operasyonel detay bilerek yazilmadi.
     summary: t(
-      "Serbest bölge güvenlik ekibinin araç giriş-çıkış kontrolünü yürüttüğü uygulama. Plaka doğrulama ve geçiş kaydı ERP'ye anlık işleniyor.",
-      "The app the free zone's security team uses for vehicle entry control. Plate verification and transit records flow into the ERP in real time.",
+      "Saha ekiplerinin araç geçiş kayıtlarını mobil cihaz üzerinden tuttuğu uygulama. Kâğıt üzerinde yürüyen bir süreci ERP'ye bağladı.",
+      "An app that lets field teams record vehicle transits from a mobile device, moving a paper-based process into the ERP.",
     ),
-    impact: t("Geçiş kayıtları ERP'ye anlık akıyor", "Transit records stream into the ERP live"),
+    impact: t("Kâğıt süreç mobile taşındı", "A paper process, moved to mobile"),
     tags: ["Flutter", "Firebase", "REST API", "C#"],
     links: {},
     pattern: "mesh",
@@ -211,6 +208,23 @@ export const projects: Project[] = [
     links: {},
     pattern: "noise",
     accent: "#06b6d4",
+  },
+  {
+    slug: "samim",
+    title: t("SAMIM — Yüksek Lisans Tezi", "SAMIM — Master's Thesis"),
+    year: "2026",
+    summary: t(
+      "Scrum, devreye alım sonrası bakımın kesinti odaklı doğası için tasarlanmamıştı. 10 sektör profesyoneliyle mülakat ve 15 kişilik uzman paneliyle yürüttüğüm AHP analizi, sorunun %45'inin acil işler ve teknik borçtan geldiğini gösterdi. SAMIM, Scrum'ı baştan yazmadan bu kısır döngüyü kıran bir uyarlama modeli.",
+      "Scrum was never designed for the interrupt-driven nature of post-deployment maintenance. Interviews with 10 practitioners and an AHP study with a 15-expert panel showed that urgent work and technical debt account for 45% of the problem. SAMIM is an adaptation model that breaks that loop without rewriting Scrum.",
+    ),
+    impact: t(
+      "Grup tutarlılık oranı 0,0089 · jüri tarafından kabul edildi",
+      "Group consistency ratio 0.0089 · accepted by the jury",
+    ),
+    tags: ["Scrum", "AHP", "Software Maintenance", "SLR"],
+    links: {},
+    pattern: "waves",
+    accent: "#8b5cf6",
   },
 ];
 
@@ -268,10 +282,10 @@ export const experience: Experience[] = [
     period: t("Eki 2022 — Günümüz", "Oct 2022 — Present"),
     current: true,
     description: t(
-      "ERP modüllerini C#, .NET Core, React ve SQL Server ile geliştiriyorum. ERP ile entegre dört mobil uygulamayı Flutter ile yazıp App Store ve Play Store'da yayınladım; push bildirim ve REST API entegrasyonlarını kurdum.",
-      "I build ERP modules with C#, .NET Core, React and SQL Server. I wrote four ERP-integrated mobile apps in Flutter and shipped them to the App Store and Play Store, along with their push notification and REST API integrations.",
+      "Küçük bir ekipte işin tamamını üstleniyoruz: ihtiyacı kullanan şirketle konuşup analiz ediyor, ERP modülünü C#, .NET Core, React ve SQL Server ile yazıyor, testini kendimiz yapıyor ve devreye alıyoruz. ERP ile entegre dört mobil uygulamayı Flutter ile geliştirip App Store ve Play Store'da yayınladım.",
+      "In a small team we own the whole cycle: we talk to the company that will use the system, do the analysis, build the ERP module in C#, .NET Core, React and SQL Server, test it ourselves and ship it. I built four ERP-integrated mobile apps in Flutter and published them on the App Store and Play Store.",
     ),
-    tags: ["C#", ".NET Core", "React", "Flutter", "SQL Server"],
+    tags: ["C#", ".NET Core", "React", "Flutter", "SQL Server", "Analiz", "Test"],
   },
   {
     org: "ESBAŞ — Ege Serbest Bölgesi",
@@ -284,15 +298,15 @@ export const experience: Experience[] = [
     tags: ["Flutter", "Firebase", "C#"],
   },
   {
-    // TODO: programin tam adi ve baslangic yili teyit edilecek
+    // TODO: baslangic yili teyit edilecek
     org: "İzmir Ekonomi Üniversitesi",
-    role: t("Yüksek Lisans", "M.Sc."),
-    period: t("2026", "2026"),
+    role: t("Bilgisayar Mühendisliği, Yüksek Lisans", "M.Sc. Computer Engineering"),
+    period: t("— Haz 2026", "— Jun 2026"),
     description: t(
-      "6 Haziran 2026'da 3,36 ortalamayla mezun oldum. Tez çalışmam jüri tarafından kabul edildi.",
-      "Graduated on 6 June 2026 with a 3.36 GPA. Thesis accepted by the examining jury.",
+      "3,36 ortalamayla mezun oldum. Tezim, Scrum'ın devreye alım sonrası bakımla uyumsuzluğunu ele alıyor: sistematik literatür taraması, 10 sektör profesyoneliyle mülakat ve 15 kişilik uzman paneliyle AHP analizi sonucunda SAMIM modelini geliştirdim. Danışman: Dr. Öğr. Üyesi Kaan Kurtel.",
+      "Graduated with a 3.36 GPA. My thesis tackles the mismatch between Scrum and post-deployment maintenance: through a systematic literature review, interviews with 10 practitioners and an AHP study with a 15-expert panel, I developed the SAMIM model. Advisor: Asst. Prof. Dr. Kaan Kurtel.",
     ),
-    tags: [],
+    tags: ["Scrum", "AHP", "Software Maintenance"],
   },
 ];
 
@@ -308,8 +322,8 @@ export const about = {
       "I joined ESBAŞ as an intern in 2022; my first task was a meal ordering app. That app is still in use — and I've been in the same place ever since, building a much larger version of the same system.",
     ),
     t(
-      "İşin güzel tarafı, yazdığım şeyin kime gittiğini biliyor olmam. Depoda barkod okutan da, kapıda araç geçiren de, telefonundan izin onaylayan da aynı binada çalışıyor. Bir hatayı koridorda duyabiliyorum.",
-      "The good part is knowing exactly who my code goes to. The person scanning barcodes in the warehouse, the one clearing vehicles at the gate, the one approving leave from their phone — all in the same building. I can hear about a bug in the hallway.",
+      "Küçük ekipte çalışmanın iyi tarafı, işin sadece kod kısmında kalmıyor olman. İhtiyacı anlatan şirketle ben konuşuyorum, çözümü ben tasarlıyorum, testini ben yapıyorum, hata gelirse yine bana geliyor. Yazdığım şeyin kime gittiğini biliyorum — çoğu aynı binada çalışıyor.",
+      "The good part of a small team is that the work doesn't stop at code. I talk to the company that has the need, I design the solution, I test it, and when something breaks it comes back to me. I know exactly who my code goes to — most of them work in the same building.",
     ),
     t(
       "Mesai dışında gitar çalıp beste yapıyorum, tiyatroyla ilgileniyorum, basketbol ve futbol izliyorum. Kendi projelerimde ise genelde bir şeyi takip etmenin daha eğlenceli yolunu arıyorum.",
