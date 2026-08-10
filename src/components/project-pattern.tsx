@@ -105,6 +105,27 @@ export function ProjectPattern({ project }: { project: Project }) {
         </g>
       )}
 
+      {/* Taranan bir belge: kagit, satirlar ve uzerinden gecen tarama cizgisi */}
+      {project.pattern === "scan" && (
+        <g>
+          <rect x="132" y="28" width="136" height="194" fill={a} fillOpacity="0.14" rx="3" />
+          <g stroke={a} strokeOpacity="0.6" strokeWidth="2.5" strokeLinecap="round">
+            {Array.from({ length: 11 }, (_, i) => (
+              <line
+                key={i}
+                x1="148"
+                y1={52 + i * 16}
+                x2={148 + (i % 3 === 0 ? 104 : i % 3 === 1 ? 76 : 92)}
+                y2={52 + i * 16}
+                strokeOpacity={0.55 - i * 0.03}
+              />
+            ))}
+          </g>
+          <rect x="100" y="118" width="200" height="3" fill={a} fillOpacity="0.9" rx="1.5" />
+          <rect x="100" y="122" width="200" height="18" fill={a} fillOpacity="0.18" />
+        </g>
+      )}
+
       {project.pattern === "mesh" && (
         <g stroke={a} strokeOpacity="0.45" strokeWidth="0.7" fill="none">
           {Array.from({ length: 9 }, (_, r) =>

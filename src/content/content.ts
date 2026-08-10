@@ -110,7 +110,7 @@ export type Project = {
   links: { live?: string; repo?: string };
   /** Gorsel yoksa slug'a gore otomatik desen uretilir */
   image?: string;
-  pattern: "grid" | "waves" | "orbit" | "noise" | "bars" | "mesh";
+  pattern: "grid" | "waves" | "orbit" | "noise" | "bars" | "mesh" | "scan";
   accent: string;
 };
 
@@ -131,6 +131,21 @@ export const projects: Project[] = [
     links: {},
     pattern: "orbit",
     accent: "#2f7bd8",
+  },
+  {
+    slug: "fis-okuma",
+    title: t("Fiş Okuma & Harcama Takibi", "Receipt Reading & Expense Tracking"),
+    // TODO: yil teyit edilecek
+    year: "2025",
+    summary: t(
+      "Sıfırdan kurduğum tek modül. Çalışan fişin fotoğrafını çekiyor, OpenAI görüntüyü okuyup tutarı ve kalemleri çıkarıyor, kayıt ERP'ye düşüyor. Kredi kartı ve avans harcamaları böyle takip ediliyor — muhasebe ve mali işler için yazıldı.",
+      "The one module I built from the ground up. An employee photographs a receipt, OpenAI reads the image and extracts the amount and line items, and the record lands in the ERP. This is how credit-card and cash-advance spending is tracked — built for accounting and finance.",
+    ),
+    impact: t("Elle veri girişi yerine bir fotoğraf", "One photo instead of manual data entry"),
+    tags: ["OpenAI", "C#", ".NET Core", "React", "SQL Server"],
+    links: {},
+    pattern: "scan",
+    accent: "#0f9488",
   },
   {
     slug: "depo-terminali",
@@ -167,10 +182,9 @@ export const projects: Project[] = [
     accent: "#10b981",
   },
   {
-    slug: "yemek-siparis",
-    title: t("Yemek Sipariş", "Meal Ordering"),
-    // TODO: baslangic yili teyit edilecek — staj uygulamasindan ayri bir urun
-    year: "2022 —",
+    slug: "menu-planlama",
+    title: t("Menü Planlama / Sipariş", "Menu Planning / Ordering"),
+    year: "2024",
     summary: t(
       "Bölgedeki şirketlerin menü planlaması, menü oluşturma ve sipariş süreçlerini yürüttüğü platform. Her şirketin yetkilisi kendi menüsünü yönetiyor. Mobil ve web tarafı tek kod tabanından, Flutter ile yazıldı.",
       "The platform companies in the zone use for menu planning, menu creation and ordering — each company's admin manages their own menu. Mobile and web ship from one Flutter codebase.",
@@ -186,11 +200,14 @@ export const projects: Project[] = [
     title: t("ERP Modülleri", "ERP Modules"),
     year: "2022 —",
     summary: t(
-      "ERP'nin web tarafı: C# ve .NET Core ile servis katmanı, React ile modül ekranları, SQL Server üzerinde veri modeli. Mobil uygulamaların beslendiği API'ler de burada.",
-      "The web side of the ERP: a service layer in C# and .NET Core, module screens in React, and the data model on SQL Server — including the APIs that feed the mobile apps.",
+      "Var olan ERP'ye eklediğim modüller: sözleşmeler, satın alma akışlarının bir kısmı ve izin formları. Servis katmanı C# ve .NET Core, arayüzlerin tamamı React — sistemin eski ASP.NET tarafında da arayüz geliştirdim.",
+      "Modules I added to an existing ERP: contracts, parts of the purchasing flow, and leave request forms. Services in C# and .NET Core, every front-end in React — plus front-end work on the system's legacy ASP.NET side.",
     ),
-    impact: t("Mobil tarafın tamamı bu API'lerle çalışıyor", "Every mobile app runs on these APIs"),
-    tags: ["C#", ".NET Core", "React", "SQL Server", "Entity Framework"],
+    impact: t(
+      "Eski ASP.NET tarafı ve yeni React ekranlar bir arada",
+      "Legacy ASP.NET and new React screens, side by side",
+    ),
+    tags: ["C#", ".NET Core", "React", "ASP.NET", "SQL Server", "Entity Framework"],
     links: {},
     pattern: "bars",
     accent: "#7c3aed",
@@ -246,7 +263,7 @@ export const skills: { group: I18n; items: string[] }[] = [
   },
   {
     group: t("Veri & Servis", "Data & Services"),
-    items: ["SQL Server", "RESTful API", "Firebase", "Firestore", "Supabase", "OneSignal"],
+    items: ["SQL Server", "RESTful API", "OpenAI API", "Firebase", "Firestore", "Supabase"],
   },
   {
     group: t("Araçlar & Süreç", "Tools & Process"),
@@ -285,8 +302,8 @@ export const experience: Experience[] = [
     period: t("Eki 2022 — Günümüz", "Oct 2022 — Present"),
     current: true,
     description: t(
-      "Küçük bir ekipte işin tamamını üstleniyoruz: ihtiyacı kullanan şirketle konuşup analiz ediyor, ERP modülünü C#, .NET Core, React ve SQL Server ile yazıyor, testini kendimiz yapıyor ve devreye alıyoruz. ERP ile entegre dört mobil uygulamayı Flutter ile geliştirip App Store ve Play Store'da yayınladım.",
-      "In a small team we own the whole cycle: we talk to the company that will use the system, do the analysis, build the ERP module in C#, .NET Core, React and SQL Server, test it ourselves and ship it. I built four ERP-integrated mobile apps in Flutter and published them on the App Store and Play Store.",
+      "Küçük bir ekipte işin tamamını üstleniyoruz: ihtiyacı kullanan şirketle konuşup analiz ediyor, ERP modülünü C#, .NET Core, React ve SQL Server ile yazıyor, testini kendimiz yapıyor ve devreye alıyoruz. Kurumun mobil tarafının tamamı bana ait: ERP ile entegre uygulamaları Flutter ile geliştirip yayınladım.",
+      "In a small team we own the whole cycle: we talk to the company that will use the system, do the analysis, build the ERP module in C#, .NET Core, React and SQL Server, test it ourselves and ship it. The whole mobile side of the company is mine: I built and shipped the ERP-integrated apps in Flutter.",
     ),
     tags: ["C#", ".NET Core", "React", "Flutter", "SQL Server", "Analiz", "Test"],
   },
