@@ -51,7 +51,8 @@
   --dim: #6b635a;
   --faint: #a9a096;
   --line: #ddd6cb;
-  --accent: #d1541f;
+  /* Vurgu rengi — sitedeki tek isaret rengi. Degistirmek icin sadece burasi. */
+  --accent: #1d5fa8;
   --accent-fg: #ffffff;
 
   --f-display: var(--font-serif-display), Georgia, serif;

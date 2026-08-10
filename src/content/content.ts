@@ -298,15 +298,25 @@ export const experience: Experience[] = [
     tags: ["Flutter", "Firebase", "C#"],
   },
   {
-    // TODO: baslangic yili teyit edilecek
     org: "İzmir Ekonomi Üniversitesi",
     role: t("Bilgisayar Mühendisliği, Yüksek Lisans", "M.Sc. Computer Engineering"),
-    period: t("— Haz 2026", "— Jun 2026"),
+    period: t("Şub 2023 — Haz 2026", "Feb 2023 — Jun 2026"),
     description: t(
       "3,36 ortalamayla mezun oldum. Tezim, Scrum'ın devreye alım sonrası bakımla uyumsuzluğunu ele alıyor: sistematik literatür taraması, 10 sektör profesyoneliyle mülakat ve 15 kişilik uzman paneliyle AHP analizi sonucunda SAMIM modelini geliştirdim. Danışman: Dr. Öğr. Üyesi Kaan Kurtel.",
       "Graduated with a 3.36 GPA. My thesis tackles the mismatch between Scrum and post-deployment maintenance: through a systematic literature review, interviews with 10 practitioners and an AHP study with a 15-expert panel, I developed the SAMIM model. Advisor: Asst. Prof. Dr. Kaan Kurtel.",
     ),
     tags: ["Scrum", "AHP", "Software Maintenance"],
+  },
+  {
+    // TODO: baslangic ve mezuniyet yillari teyit edilecek
+    org: "İzmir Ekonomi Üniversitesi",
+    role: t("Yazılım Mühendisliği, Lisans", "B.Sc. Software Engineering"),
+    period: t("— 2022", "— 2022"),
+    description: t(
+      "3,01 ortalamayla mezun oldum. Tiyatro kulübünde başkan yardımcılığı yaptım — sahnede de, sahne arkasında da.",
+      "Graduated with a 3.01 GPA. Served as vice president of the theatre club — on stage and behind it.",
+    ),
+    tags: [],
   },
 ];
 
