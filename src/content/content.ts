@@ -215,16 +215,16 @@ export const projects: Project[] = [
   {
     slug: "persisto",
     title: t("Persisto", "Persisto"),
-    year: "2025",
+    year: "2025 — 2026",
     summary: t(
-      "Kişisel projem: alışkanlık ve seri takibini oyunlaştıran renkli bir Flutter uygulaması. Hedefleri işaret kutusu ya da süre olarak takip eder, serileri kendisi hesaplar, haftalık jetonlarla gün dondurmaya izin verir.",
-      "A personal project: a colourful Flutter app that gamifies habit and streak tracking. Goals as checkboxes or timed activities, automatic streak calculation, and weekly tokens to freeze a day.",
+      "Alışkanlık ve seri takibi için yazdığım Flutter uygulaması. Kategoriler gün gün işaretleniyor, seriler kendiliğinden hesaplanıyor, haftalık jetonla bir gün dondurulabiliyor. Hatırlatmalar OneSignal üzerinden günde beş sabit saate planlanıyor — kategoriyi tamamladığın anda o günün kalan bildirimleri iptal oluyor. Mağaza için değil, tek bir kişi için yazıldı.",
+      "A Flutter app I wrote for habit and streak tracking. Categories get checked off day by day, streaks compute themselves, and a weekly token can freeze a day. Reminders are scheduled through OneSignal at five fixed times — and the moment you complete a category, the rest of that day's notifications cancel themselves. Written for one person, never meant for a store.",
     ),
     impact: t(
-      "Zaman çizelgesi, Excel aktarımı ve tema hafızası",
-      "Timeline, Excel export and persistent theming",
+      "Seri ve dondurma mantığı birim testlerle korunuyor",
+      "Streak and freeze logic covered by unit tests",
     ),
-    tags: ["Flutter", "Material 3", "Firebase", "Supabase", "SharedPreferences"],
+    tags: ["Flutter", "Firebase Auth", "Firestore", "Supabase", "OneSignal", "Excel"],
     links: {},
     pattern: "noise",
     accent: "#06b6d4",
