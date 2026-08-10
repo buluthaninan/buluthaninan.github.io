@@ -1,6 +1,16 @@
-# Portfolyo
+# Buluthan İnan — Portfolyo
 
-Next.js (static export) + TypeScript + Tailwind CSS v4 ile yazılmış, üç temalı ve iki dilli tek sayfa portfolyo.
+Next.js (static export) + TypeScript + Tailwind CSS v4 ile yazılmış, üç temalı ve
+iki dilli tek sayfa portfolyo.
+
+## ⚠ Yayına almadan önce
+
+1. **CV dosyaları git'e dahil değil.** İkisi de telefon numarası içeriyor ve site
+   herkese açık olacak. `.gitignore` içindeki açıklamayı oku ve karar ver.
+   Karar vermeden push edersen sorun olmaz — dosyalar zaten gitmez, sadece
+   sitedeki "CV indir" butonu 404 verir.
+2. **`src/content/content.ts` başındaki "DOĞRULANMASI GEREKENLER" listesine bak.**
+   Proje yılları, yüksek lisans programının adı ve lisans eğitimi CV'lerde yoktu.
 
 ## Çalıştırma
 
@@ -86,14 +96,33 @@ Terminal temasındaki komut satırı `help`, `whoami`, `ls projects`, `cat <proj
 
 ## GitHub Pages'e yayınlama
 
-`npm run build` çıktıyı `out/` klasörüne static olarak yazar.
+`.github/workflows/deploy.yml` hazır. `main` dalına her push'ta site otomatik
+yayınlanır. Tek seferlik yapılacaklar:
 
-**Site `kullaniciadi.github.io` ise** ek ayar gerekmez.
+1. GitHub'da `buluthaninan.github.io` adıyla bir depo aç
+2. **Settings → Pages → Build and deployment → Source: "GitHub Actions"** seç
+3. Depoyu bağla ve push et:
 
-**Site `kullaniciadi.github.io/depo-adi` ise** build'i alt yol vererek al:
+```bash
+git remote add origin https://github.com/buluthaninan/buluthaninan.github.io.git
+```
+
+```bash
+git push -u origin main
+```
+
+Site birkaç dakika içinde `https://buluthaninan.github.io` adresinde yayında olur.
+
+### Depo adı farklı olursa
+
+`kullaniciadi.github.io/depo-adi` gibi bir alt yolda yayınlanacaksa
+`.github/workflows/deploy.yml` içindeki `BASE_PATH` satırını aç ve depo adını yaz.
+Yerelde denemek için:
 
 ```bash
 BASE_PATH=/depo-adi npm run build
 ```
+
+Bu ayar yanlışsa CSS ve görseller kırılır.
 
 `public/.nojekyll` dosyası önemli — onsuz GitHub Pages `_next` klasörünü yok sayar.
