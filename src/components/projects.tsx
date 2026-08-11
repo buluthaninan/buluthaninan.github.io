@@ -137,7 +137,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
           {/* etki satırı — üzerine gelince alttan çıkar */}
           <div
-            className="absolute inset-x-0 bottom-0 translate-y-full bg-bg/85 px-4 py-2.5 font-mono text-[11px] backdrop-blur-md transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:translate-y-0"
+            // card-impact: dokunmatik cihazda hep gorunur — mobilde hover yok
+            className="card-impact absolute inset-x-0 bottom-0 translate-y-full bg-bg/85 px-4 py-2.5 font-mono text-[11px] backdrop-blur-md transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:translate-y-0"
             style={{ color: project.accent }}
           >
             ↗ {tr(project.impact)}

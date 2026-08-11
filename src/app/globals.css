@@ -640,6 +640,32 @@ html[data-cursor="on"] * {
 }
 
 /* ==========================================================================
+   DOKUNMATIK CIHAZLAR
+   Hover olmayan cihazlarda hover'a bagli her sey kaybolur. Icerik tasiyan
+   parcalari geri getir, dokunma geri bildirimi ekle.
+   ========================================================================== */
+
+@media (hover: none) {
+  /* Kartin sonuc satiri masaustunde hover'da cikiyor; mobilde hep gorunsun,
+     yoksa "100+ calisan kullaniyor" gibi bilgiler hic okunmuyor. */
+  .card-impact {
+    translate: 0 0;
+  }
+
+  /* Hover yerine basma geri bildirimi */
+  a:active,
+  button:active {
+    opacity: 0.65;
+    transition: opacity 0.08s ease;
+  }
+}
+
+/* Varsayilan mavi tap parlamasi yerine temanin kendi tonu */
+html {
+  -webkit-tap-highlight-color: color-mix(in oklab, var(--accent) 18%, transparent);
+}
+
+/* ==========================================================================
    TEMA GECISI — dairesel dalga (View Transitions API)
    ========================================================================== */
 

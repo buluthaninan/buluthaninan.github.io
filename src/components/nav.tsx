@@ -82,7 +82,7 @@ export function Nav() {
             className="group flex shrink-0 items-center gap-2.5 text-sm tracking-tight"
             aria-label={profile.name}
           >
-            <span className="grid size-7 place-items-center rounded-[var(--r-card)] border border-line bg-surface font-mono text-[11px] font-bold transition-colors duration-300 group-hover:bg-accent group-hover:text-accent-fg">
+            <span className="grid size-11 place-items-center rounded-[var(--r-card)] border border-line bg-surface font-mono text-[11px] font-bold sm:size-7 transition-colors duration-300 group-hover:bg-accent group-hover:text-accent-fg">
               {profile.name
                 .split(" ")
                 .map((w) => w[0])
@@ -146,7 +146,7 @@ export function Nav() {
                       y: e.clientY,
                     })
                   }
-                  className="theme-btn grid size-7 place-items-center rounded-[var(--r-pill)] text-dim transition-all duration-300 hover:text-fg"
+                  className="theme-btn grid size-11 place-items-center rounded-[var(--r-pill)] text-dim transition-all duration-300 hover:text-fg sm:size-7"
                   aria-label={tr(ui.themes[t])}
                   title={tr(ui.themes[t])}
                 >
@@ -158,12 +158,12 @@ export function Nav() {
             {/* Dil */}
             <button
               onClick={toggleLang}
-              className="relative h-8 w-[54px] overflow-hidden rounded-[var(--r-pill)] border border-line bg-surface font-mono text-[11px] uppercase"
+              className="relative h-11 w-[62px] overflow-hidden rounded-[var(--r-pill)] border border-line bg-surface font-mono text-[11px] uppercase sm:h-8 sm:w-[54px]"
               aria-label="TR / EN"
             >
               <span
-                className="absolute inset-y-0.5 left-0.5 w-[25px] rounded-[var(--r-pill)] bg-accent transition-transform duration-[400ms] ease-[var(--ease-spring)]"
-                style={{ transform: `translateX(${lang === "en" ? 24 : 0}px)` }}
+                className="absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-[var(--r-pill)] bg-accent transition-transform duration-[400ms] ease-[var(--ease-spring)]"
+                style={{ transform: `translateX(${lang === "en" ? 100 : 0}%)` }}
               />
               <span className="relative flex h-full items-center">
                 <span className={cx("flex-1 transition-colors", lang === "tr" ? "text-accent-fg" : "text-dim")}>
@@ -178,7 +178,7 @@ export function Nav() {
             {/* Mobil menü */}
             <button
               onClick={() => setMenu(true)}
-              className="grid size-8 place-items-center rounded-[var(--r-pill)] border border-line bg-surface md:hidden"
+              className="grid size-11 place-items-center rounded-[var(--r-pill)] border border-line bg-surface md:hidden"
               aria-label={tr(ui.nav.menu)}
             >
               <svg viewBox="0 0 16 16" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -201,7 +201,7 @@ export function Nav() {
           <span className="eyebrow">{tr(ui.nav.menu)}</span>
           <button
             onClick={() => setMenu(false)}
-            className="grid size-8 place-items-center rounded-[var(--r-pill)] border border-line"
+            className="grid size-11 place-items-center rounded-[var(--r-pill)] border border-line"
             aria-label={tr(ui.nav.close)}
           >
             <svg viewBox="0 0 16 16" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5">

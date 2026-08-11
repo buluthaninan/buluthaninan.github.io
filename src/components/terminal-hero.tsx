@@ -460,7 +460,7 @@ export function TerminalHero() {
 
   return (
     <div
-      className="surface mx-auto flex h-[min(66vh,520px)] w-full max-w-3xl flex-col overflow-hidden"
+      className="surface mx-auto flex h-[min(58vh,520px)] w-full max-w-3xl flex-col overflow-hidden sm:h-[min(66vh,520px)]"
       onClick={() => inputRef.current?.focus()}
     >
       {/* pencere başlığı */}
@@ -509,7 +509,8 @@ export function TerminalHero() {
               }}
               spellCheck={false}
               autoComplete="off"
-              className="flex-1 bg-transparent font-mono text-[13px] text-fg outline-none"
+              // 16px altinda iOS odaklaninca sayfayi yakinlastiriyor — mobilde 16px
+              className="flex-1 bg-transparent font-mono text-[16px] text-fg outline-none sm:text-[13px]"
               aria-label="terminal"
               placeholder={lang === "tr" ? "help" : "help"}
             />
