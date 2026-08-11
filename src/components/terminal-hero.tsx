@@ -509,6 +509,11 @@ export function TerminalHero() {
               }}
               spellCheck={false}
               autoComplete="off"
+              // Telefon klavyesi komutları "düzeltmeye" çalışıyor: otomatik
+              // büyük harf ve düzeltme kapalı, Enter tuşu da "git" olsun.
+              autoCapitalize="off"
+              autoCorrect="off"
+              enterKeyHint="go"
               // 16px altinda iOS odaklaninca sayfayi yakinlastiriyor — mobilde 16px
               className="flex-1 bg-transparent font-mono text-[16px] text-fg outline-none sm:text-[13px]"
               aria-label="terminal"
