@@ -368,8 +368,8 @@ export const about = {
       "The good part of a small team is that the work doesn't stop at code. I talk to the company that has the need, I design the solution, I test it, and when something breaks it comes back to me. I know exactly who my code goes to — most of them work in the same building.",
     ),
     t(
-      "Mesai dışında gitar çalıp beste yapıyorum, tiyatroyla ilgileniyorum, basketbol ve futbol izliyorum. Kendi projelerimde ise genelde bir şeyi takip etmenin daha eğlenceli yolunu arıyorum.",
-      "Off the clock I play guitar and write music, I'm into theatre, and I follow basketball and football. In my own projects I'm usually looking for a more enjoyable way to keep track of something.",
+      "Mesai dışında gitar çalıyorum, tiyatroyla ilgileniyorum, basketbol ve futbol izliyorum. Kendi projelerimde ise genelde bir şeyi takip etmenin daha eğlenceli yolunu arıyorum.",
+      "Off the clock I play guitar, I'm into theatre, and I follow basketball and football. In my own projects I'm usually looking for a more enjoyable way to keep track of something.",
     ),
   ],
 
